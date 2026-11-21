@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MONOPOLI EDUKASI – Indahnya Saling Menghargai dalam Keragaman</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#081a3d; --navy2:#0d2b66; --cyan:#22d3ee; --gold:#fbbf24; --green:#22c55e; --blue:#3b82f6;
+  --red:#ef4444; --purple:#a855f7; --yellow:#facc15;
+  --font:'Fredoka','Baloo 2','Comic Sans MS','Trebuchet MS',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{font-family:var(--font);color:#fff;background:
+  radial-gradient(900px 600px at 15% 10%,rgba(34,211,238,.28),transparent 60%),
+  radial-gradient(800px 600px at 90% 90%,rgba(168,85,247,.25),transparent 60%),
+  radial-gradient(700px 500px at 80% 5%,rgba(59,130,246,.3),transparent 60%),
+  linear-gradient(160deg,#06122b,#0a2150 55%,#071735);
+  background-attachment:fixed;overflow-x:hidden;user-select:none;-webkit-user-select:none}
+button{font-family:inherit;cursor:pointer;border:0;color:inherit}
+.screen{display:none;min-height:100vh;animation:fade .5s ease}
+.screen.active{display:flex}
+@keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+/* ---------- tombol ---------- */
+.btn{font-weight:700;font-size:clamp(16px,1.7vw,22px);padding:.7em 1.4em;border-radius:999px;color:#fff;
+  background:linear-gradient(180deg,#3b82f6,#1d4ed8);box-shadow:0 6px 0 #1e3a8a,0 10px 22px rgba(0,0,0,.4),inset 0 2px 0 rgba(255,255,255,.35);
+  transition:transform .12s,box-shadow .12s,filter .2s;letter-spacing:.5px;text-shadow:0 2px 2px rgba(0,0,0,.35)}
+.btn:hover{transform:translateY(-2px);filter:brightness(1.1)}
+.btn:active{transform:translateY(4px);box-shadow:0 2px 0 #1e3a8a,0 4px 10px rgba(0,0,0,.4)}
+.btn.gold{background:linear-gradient(180deg,#fde047,#f59e0b);color:#4a2c00;text-shadow:0 1px 0 rgba(255,255,255,.5);box-shadow:0 6px 0 #b45309,0 10px 22px rgba(0,0,0,.4),inset 0 2px 0 rgba(255,255,255,.6)}
+.btn.green{background:linear-gradient(180deg,#4ade80,#16a34a);box-shadow:0 6px 0 #166534,0 10px 22px rgba(0,0,0,.4),inset 0 2px 0 rgba(255,255,255,.35)}
+.btn.red{background:linear-gradient(180deg,#f87171,#dc2626);box-shadow:0 6px 0 #991b1b,0 10px 22px rgba(0,0,0,.4),inset 0 2px 0 rgba(255,255,255,.35)}
+.btn.purple{background:linear-gradient(180deg,#c084fc,#7e22ce);box-shadow:0 6px 0 #581c87,0 10px 22px rgba(0,0,0,.4),inset 0 2px 0 rgba(255,255,255,.35)}
+.btn.glow{animation:glow 1.6s ease-in-out infinite}
+@keyframes glow{0%,100%{box-shadow:0 6px 0 #b45309,0 0 12px rgba(251,191,36,.6),inset 0 2px 0 rgba(255,255,255,.6)}50%{box-shadow:0 6px 0 #b45309,0 0 38px rgba(251,191,36,1),inset 0 2px 0 rgba(255,255,255,.6)}}
+.btn[disabled]{filter:grayscale(.85) brightness(.7);cursor:not-allowed;animation:none;transform:none}
+.btn.sm{font-size:clamp(13px,1.15vw,16px);padding:.5em 1em;box-shadow:0 4px 0 #1e3a8a,0 6px 12px rgba(0,0,0,.35),inset 0 2px 0 rgba(255,255,255,.3)}
+.btn.sm.green{box-shadow:0 4px 0 #166534,0 6px 12px rgba(0,0,0,.35)}
+.btn.sm.red{box-shadow:0 4px 0 #991b1b,0 6px 12px rgba(0,0,0,.35)}
+.btn.sm.gold{box-shadow:0 4px 0 #b45309,0 6px 12px rgba(0,0,0,.35)}
+.btn.sm.purple{box-shadow:0 4px 0 #581c87,0 6px 12px rgba(0,0,0,.35)}
+
+/* ---------- HOME ---------- */
+#home{align-items:center;justify-content:center;padding:24px;position:relative;overflow:hidden}
+.home-wrap{display:grid;grid-template-columns:1.05fr 1fr;gap:28px;align-items:center;width:min(1200px,100%)}
+.home-left{text-align:center}
+.badge{display:inline-block;background:rgba(34,211,238,.15);border:2px solid var(--cyan);color:#a5f3fc;padding:.3em 1em;border-radius:999px;font-weight:600;font-size:clamp(13px,1.3vw,17px);margin-bottom:12px}
+.title{font-size:clamp(40px,7vw,92px);font-weight:700;line-height:.95;letter-spacing:1px;
+  background:linear-gradient(180deg,#fff7c2,#fbbf24 55%,#f59e0b);-webkit-background-clip:text;background-clip:text;color:transparent;
+  filter:drop-shadow(0 4px 0 #92400e) drop-shadow(0 0 22px rgba(251,191,36,.45))}
+.subtitle{margin:14px 0 22px;font-size:clamp(17px,2.1vw,28px);font-weight:500;color:#bae6fd}
+.menu{display:flex;flex-direction:column;gap:14px;align-items:center}
+.menu .btn{width:min(380px,100%)}
+.home-right{position:relative;display:grid;place-items:center;min-height:380px}
+#homeBoardBox{width:min(520px,92%);--bs:min(520px,92vw);transform:perspective(1100px) rotateX(38deg) rotateZ(-30deg);filter:drop-shadow(0 40px 30px rgba(0,0,0,.5))}
+.home-teacher{position:absolute;right:-6px;bottom:-14px;width:min(210px,34%);filter:drop-shadow(0 10px 12px rgba(0,0,0,.5))}
+.home-bubble{position:absolute;left:2%;top:0;max-width:240px;background:#fff;color:#0f2a5c;border-radius:20px;padding:10px 16px;font-weight:600;font-size:15px;box-shadow:0 8px 20px rgba(0,0,0,.35)}
+.home-bubble:after{content:"";position:absolute;right:30px;bottom:-12px;border:10px solid transparent;border-top-color:#fff;border-bottom:0}
+.music-btn{position:absolute;top:18px;right:124px;z-index:5}
+.floaters span{position:absolute;font-size:34px;opacity:.55;animation:float 7s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0) rotate(-6deg)}50%{transform:translateY(-22px) rotate(6deg)}}
+
+/* ---------- SETUP ---------- */
+#setup{align-items:center;justify-content:center;padding:20px}
+.panel{background:linear-gradient(180deg,rgba(20,50,110,.92),rgba(8,26,61,.95));border:3px solid rgba(34,211,238,.55);border-radius:28px;padding:clamp(18px,3vw,34px);box-shadow:0 20px 60px rgba(0,0,0,.55),0 0 40px rgba(34,211,238,.18)}
+.setup-panel{width:min(780px,100%)}
+.setup-panel h2{font-size:clamp(24px,3.4vw,40px);text-align:center;color:var(--gold);margin-bottom:6px}
+.setup-panel p.hint{text-align:center;color:#bae6fd;margin-bottom:18px;font-size:clamp(14px,1.5vw,18px)}
+.modes{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px}
+.mode{background:rgba(255,255,255,.08);border:3px solid rgba(255,255,255,.2);border-radius:20px;padding:12px 6px;font-weight:700;font-size:clamp(14px,1.7vw,20px);transition:.15s}
+.mode b{display:block;font-size:clamp(26px,3.4vw,40px);color:var(--gold)}
+.mode.sel{background:linear-gradient(180deg,#2563eb,#1d4ed8);border-color:#fde047;box-shadow:0 0 24px rgba(253,224,71,.6);transform:scale(1.04)}
+.pinputs{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:22px}
+.pin{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.08);border-radius:18px;padding:8px 12px;border:2px solid rgba(255,255,255,.15)}
+.pin svg{width:34px;height:48px;flex:none}
+.pin label{font-size:12px;color:#bae6fd;display:block;font-weight:600}
+.pin input{width:100%;background:#fff;color:#0f2a5c;border:0;border-radius:12px;padding:8px 12px;font-family:inherit;font-weight:600;font-size:clamp(15px,1.6vw,19px);outline:3px solid transparent;user-select:text;-webkit-user-select:text}
+.pin input:focus{outline-color:var(--cyan)}
+.row-btn{display:flex;justify-content:center;gap:14px;flex-wrap:wrap}
+
+/* ---------- MATERI ---------- */
+#materi{align-items:center;justify-content:center;padding:20px}
+.mat-panel{width:min(920px,100%)}
+.mat-panel h2{font-size:clamp(24px,3.4vw,40px);text-align:center;color:var(--gold);margin-bottom:4px}
+.mat-panel .hint{text-align:center;color:#bae6fd;margin-bottom:14px;font-size:clamp(14px,1.5vw,18px)}
+.sec-t{font-weight:700;color:#fde047;margin:10px 0 8px;font-size:clamp(15px,1.7vw,20px)}
+.kelas-row{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}
+.kbtn{background:rgba(255,255,255,.08);border:3px solid rgba(255,255,255,.2);border-radius:18px;padding:8px 4px;font-weight:700;font-size:clamp(13px,1.5vw,18px);transition:.15s}
+.kbtn b{display:block;font-size:clamp(22px,3vw,34px);color:var(--gold);line-height:1.1}
+.kbtn.sel{background:linear-gradient(180deg,#2563eb,#1d4ed8);border-color:#fde047;box-shadow:0 0 22px rgba(253,224,71,.55);transform:scale(1.05)}
+.bab-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px}
+.bab{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center;text-align:left;background:rgba(255,255,255,.08);border:3px solid rgba(255,255,255,.2);border-radius:18px;padding:10px 12px;transition:.15s}
+.bab .ck{width:30px;height:30px;border-radius:9px;border:3px solid #94a3b8;display:grid;place-items:center;font-size:20px;color:transparent;background:#fff}
+.bab.sel{background:linear-gradient(180deg,rgba(34,197,94,.35),rgba(22,163,74,.25));border-color:#4ade80}
+.bab.sel .ck{background:#16a34a;border-color:#fff;color:#fff}
+.bab b{font-size:clamp(15px,1.7vw,19px)}
+.bab span.tp{display:block;font-size:clamp(12px,1.3vw,15px);color:#bae6fd;font-weight:500;line-height:1.25}
+.bab .cnt{background:#0f2a5c;color:#fde047;border-radius:12px;padding:2px 10px;font-weight:700;font-size:15px;white-space:nowrap}
+.mat-tools{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.packbtn{width:100%;margin-top:12px;text-align:left;background:rgba(255,255,255,.08);border:3px dashed rgba(251,191,36,.6);border-radius:18px;padding:10px 14px;font-weight:600;font-size:clamp(13px,1.5vw,17px);transition:.15s}
+.packbtn.sel{background:linear-gradient(180deg,rgba(251,191,36,.35),rgba(217,119,6,.3));border-style:solid;border-color:#fde047}
+.sumbox{margin-top:12px;background:rgba(255,255,255,.1);border-radius:16px;padding:10px 14px;text-align:center;font-weight:600;font-size:clamp(14px,1.6vw,18px);line-height:1.4}
+.sumbox b{color:#fde047}
+.sumbox.warn{border:2px solid #fb923c}
+.dim2{opacity:.4;pointer-events:none}
+/* alat melayang */
+#floatTools{position:fixed;right:12px;top:12px;z-index:70;display:flex;gap:10px;align-items:flex-end}
+.fbtn{width:46px;height:46px;border-radius:50%;font-size:22px;display:grid;place-items:center;background:linear-gradient(180deg,#3b82f6,#1d4ed8);box-shadow:0 4px 0 #1e3a8a,0 8px 16px rgba(0,0,0,.45),inset 0 2px 0 rgba(255,255,255,.35);transition:transform .12s}
+.fbtn:hover{transform:translateY(-2px)}
+.fbtn:active{transform:translateY(3px)}
+.fbtn.dev{background:linear-gradient(180deg,#c084fc,#7e22ce);box-shadow:0 4px 0 #581c87,0 8px 16px rgba(0,0,0,.45),inset 0 2px 0 rgba(255,255,255,.35)}
+#devTip{position:fixed;right:12px;top:68px;z-index:71;max-width:min(340px,86vw);background:#fff;color:#0f2a5c;font-weight:700;border-radius:18px;padding:12px 16px;box-shadow:0 10px 28px rgba(0,0,0,.5);display:none;font-size:15px;line-height:1.35}
+#devTip.show{display:block;animation:pop .35s cubic-bezier(.3,1.6,.5,1)}
+#devTip:after{content:"";position:absolute;right:16px;top:-10px;border:10px solid transparent;border-bottom-color:#fff;border-top:0}
+#devTip small{display:block;color:#64748b;font-weight:500;font-size:12px;margin-bottom:2px}
+#toast{position:fixed;left:50%;bottom:78px;transform:translateX(-50%);z-index:95;background:#0f2a5c;color:#fff;border:2px solid var(--cyan);border-radius:16px;padding:10px 16px;font-weight:600;max-width:min(520px,92vw);text-align:center;display:none}
+#toast.show{display:block;animation:pop .3s}
+
+/* ---------- GAME ---------- */
+#game{flex-direction:column;--bs:min(calc(100vw - 700px),calc(100vh - 118px))}
+.topbar{padding-right:122px !important;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 16px;flex-wrap:wrap;background:linear-gradient(180deg,rgba(8,26,61,.9),rgba(8,26,61,.6));border-bottom:2px solid rgba(34,211,238,.35)}
+.turn{display:flex;align-items:center;gap:10px;font-weight:700;font-size:clamp(16px,2vw,26px);background:rgba(255,255,255,.1);padding:6px 18px 6px 10px;border-radius:999px;border:3px solid var(--tc,#fff);box-shadow:0 0 22px var(--tc,#fff)}
+.turn svg{width:30px;height:42px}
+.turn small{display:block;font-size:.55em;color:#bae6fd;font-weight:500;letter-spacing:1px}
+.turn .nm{color:#fde047}
+.tools{display:flex;gap:8px;flex-wrap:wrap}
+.gmain{flex:1;display:grid;grid-template-columns:300px 1fr 300px;gap:14px;padding:12px 16px;align-items:start}
+.side{display:flex;flex-direction:column;gap:12px}
+.card{background:linear-gradient(180deg,rgba(20,50,110,.85),rgba(8,26,61,.9));border:2px solid rgba(34,211,238,.4);border-radius:22px;padding:12px;box-shadow:0 10px 28px rgba(0,0,0,.4)}
+.card h3{font-size:18px;color:var(--gold);text-align:center;margin-bottom:8px;letter-spacing:1px}
+.srow{display:grid;grid-template-columns:auto 1fr auto;gap:8px;align-items:center;background:rgba(255,255,255,.07);border:2px solid transparent;border-radius:16px;padding:7px 10px;margin-bottom:8px;transition:.25s}
+.srow.act{border-color:var(--pc);background:rgba(255,255,255,.16);box-shadow:0 0 18px var(--pc);transform:scale(1.02)}
+.srow svg{width:28px;height:40px}
+.srow .n{font-weight:700;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:130px}
+.srow .m{font-size:12px;color:#bae6fd;font-weight:500}
+.srow .pt{font-size:22px;font-weight:700;color:#fde047;text-align:right;line-height:1}
+.srow .pt small{display:block;font-size:11px;color:#bae6fd;font-weight:500}
+.rk{display:inline-block;background:#fde047;color:#4a2c00;border-radius:8px;padding:0 6px;font-size:12px;font-weight:700;margin-right:4px}
+.boardWrap{display:grid;place-items:center;padding-top:6px}
+.boardBox{width:var(--bs);height:calc(var(--bs) * .92);position:relative;display:grid;place-items:center}
+.tilt{width:var(--bs);transform:perspective(1700px) rotateX(15deg);transform-origin:50% 55%}
+.boardFrame{position:relative;width:100%;aspect-ratio:1;container-type:inline-size;border-radius:3.2cqw;
+  background:linear-gradient(145deg,#1d4ed8,#0b2a6f);padding:1.3%;
+  box-shadow:0 calc(var(--bs)*.012) 0 #0a2260,0 calc(var(--bs)*.024) 0 #07194a,0 calc(var(--bs)*.05) calc(var(--bs)*.06) rgba(0,0,0,.6),0 0 40px rgba(34,211,238,.25)}
+.boardGrid{position:relative;width:100%;height:100%;display:grid;grid-template-columns:repeat(6,1fr);grid-template-rows:repeat(6,1fr);gap:.7cqw}
+.cell{position:relative;border-radius:1.6cqw;overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  background:linear-gradient(160deg,var(--c1),var(--c2));box-shadow:inset 0 .35cqw 0 rgba(255,255,255,.5),inset 0 -.6cqw 0 rgba(0,0,0,.25),0 .5cqw 1cqw rgba(0,0,0,.35);transition:filter .3s,transform .3s}
+.cell:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,.35),transparent 45%);pointer-events:none}
+.cell .no{position:absolute;left:.9cqw;top:.5cqw;font-weight:700;font-size:2.7cqw;color:#fff;text-shadow:0 .2cqw .3cqw rgba(0,0,0,.5);background:rgba(0,0,0,.25);border-radius:1cqw;padding:0 .9cqw;line-height:1.35}
+.cell .ic{font-size:5.4cqw;line-height:1;filter:drop-shadow(0 .3cqw .3cqw rgba(0,0,0,.4));margin-top:1.4cqw}
+.cell .lb{font-size:1.75cqw;font-weight:700;color:#fff;text-shadow:0 .2cqw .3cqw rgba(0,0,0,.6);margin-top:.3cqw;letter-spacing:.1cqw;text-align:center;line-height:1.05}
+.cell.cur{filter:brightness(1.25);animation:cellp 1s ease-in-out infinite}
+@keyframes cellp{0%,100%{transform:scale(1)}50%{transform:scale(1.07)}}
+.center{grid-row:2/span 4;grid-column:2/span 4;border-radius:2.2cqw;position:relative;overflow:hidden;background:linear-gradient(180deg,#7dd3fc,#e0f2fe 60%,#86efac);box-shadow:inset 0 0 0 .6cqw rgba(255,255,255,.7),inset 0 .5cqw 3cqw rgba(0,0,0,.25)}
+.center svg.scene{position:absolute;inset:0;width:100%;height:100%}
+.center .ct{position:absolute;left:0;right:0;top:3.2cqw;text-align:center;font-weight:700;font-size:6.2cqw;line-height:1;letter-spacing:.2cqw;
+  background:linear-gradient(180deg,#fff7c2,#fbbf24 60%,#f59e0b);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-stroke:.35cqw #7c2d12;paint-order:stroke fill;filter:drop-shadow(0 .5cqw 0 #7c2d12)}
+.center .cs{position:absolute;left:0;right:0;top:10.8cqw;text-align:center;font-weight:700;font-size:2.4cqw;color:#0b3a7a;text-shadow:0 .15cqw 0 #fff}
+.tokens{position:absolute;inset:1.3%;pointer-events:none}
+.tok{position:absolute;width:5.4cqw;height:7.6cqw;transform:translate(-50%,-78%);transition:left .38s cubic-bezier(.4,1.5,.5,1),top .38s cubic-bezier(.4,1.5,.5,1);color:var(--pc);filter:drop-shadow(0 .6cqw .5cqw rgba(0,0,0,.5));z-index:5}
+.tok svg{width:100%;height:100%;display:block}
+.tok.act{animation:hop 1s ease-in-out infinite;z-index:8}
+.tok.act:before{content:"";position:absolute;left:50%;bottom:-.8cqw;width:8cqw;height:3cqw;transform:translateX(-50%);border-radius:50%;background:radial-gradient(var(--pc),transparent 70%);opacity:.9}
+@keyframes hop{0%,100%{margin-top:0}50%{margin-top:-1.3cqw}}
+.tok svg.jump{animation:jmp .42s ease-out;transform-origin:50% 100%}
+@keyframes jmp{0%{transform:translateY(0) scale(1,1)}22%{transform:translateY(8%) scale(1.18,.82)}55%{transform:translateY(-70%) scale(.92,1.14)}80%{transform:translateY(4%) scale(1.1,.9)}100%{transform:translateY(0) scale(1,1)}}
+
+.teacherCard{display:grid;grid-template-columns:100px 1fr;gap:8px;align-items:end}
+.teacher svg{width:100%;height:auto;display:block;filter:drop-shadow(0 6px 8px rgba(0,0,0,.45))}
+.bubble{position:relative;background:#fff;color:#0f2a5c;border-radius:18px;padding:10px 12px;font-weight:600;font-size:14px;line-height:1.3;min-height:70px;box-shadow:0 6px 14px rgba(0,0,0,.3)}
+.bubble:before{content:"";position:absolute;left:-10px;bottom:20px;border:9px solid transparent;border-right-color:#fff;border-left:0}
+.diceStage{cursor:pointer;display:grid;place-items:center;height:140px;perspective:700px}
+.diceJump{transition:transform .3s}
+.diceJump.rolling{animation:djump 1.4s ease-out}
+@keyframes djump{0%{transform:translateY(0)}15%{transform:translateY(-34px)}35%{transform:translateY(0)}50%{transform:translateY(-16px)}68%{transform:translateY(0)}80%{transform:translateY(-6px)}100%{transform:translateY(0)}}
+.cube{--ds:76px;width:var(--ds);height:var(--ds);position:relative;transform-style:preserve-3d;transform:rotateX(-25deg) rotateY(35deg)}
+.cube .f{position:absolute;inset:0;background:linear-gradient(145deg,#fff,#dbe4f0);border-radius:14px;border:1px solid #b6c3d6;display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,1fr);padding:11px;gap:3px;box-shadow:inset 0 0 14px rgba(0,0,0,.18);backface-visibility:hidden}
+.cube .f i{width:100%;height:100%;border-radius:50%;background:transparent;place-self:center;max-width:15px;max-height:15px}
+.cube .f i.on{background:radial-gradient(circle at 35% 30%,#555,#000 70%)}
+.cube .f1{transform:translateZ(calc(var(--ds)/2))}
+.cube .f2{transform:rotateX(-90deg) translateZ(calc(var(--ds)/2))}
+.cube .f3{transform:rotateY(90deg) translateZ(calc(var(--ds)/2))}
+.cube .f4{transform:rotateY(-90deg) translateZ(calc(var(--ds)/2))}
+.cube .f5{transform:rotateX(90deg) translateZ(calc(var(--ds)/2))}
+.cube .f6{transform:rotateY(180deg) translateZ(calc(var(--ds)/2))}
+.dinfo{text-align:center;font-weight:600;font-size:15px;color:#bae6fd;min-height:22px}
+.dinfo b{color:#fde047;font-size:20px}
+#rollBtn{width:100%;font-size:clamp(17px,1.6vw,22px)}
+
+@media (min-width:1101px){.side.right{min-height:calc(100vh - 128px);justify-content:space-between}}
+#rollBtn{padding:.9em 1.2em}
+/* ---------- MODAL ---------- */
+.overlay{position:fixed;inset:0;background:rgba(3,10,30,.78);backdrop-filter:blur(5px);display:none;align-items:center;justify-content:center;padding:14px;z-index:50;overflow:auto}
+.overlay.show{display:flex;animation:fade .25s ease}
+.modal{width:min(720px,100%);max-height:94vh;overflow:auto}
+.modal h2{color:var(--gold);text-align:center;font-size:clamp(22px,3vw,34px);margin-bottom:12px}
+.modal ol,.modal ul{padding-left:1.3em;font-size:clamp(15px,1.7vw,19px);line-height:1.5;margin-bottom:14px}
+.modal li{margin-bottom:6px}
+.modal .row-btn{margin-top:10px}
+.confirm{width:min(460px,100%);text-align:center}
+.confirm p{font-size:clamp(16px,2vw,21px);margin-bottom:16px;line-height:1.4}
+
+/* kartu soal */
+#qOverlay{z-index:40}
+.qwrap{display:grid;grid-template-columns:150px 1fr;gap:14px;align-items:end;width:min(1020px,100%)}
+.qteach{display:flex;flex-direction:column;align-items:center;gap:8px}
+.qteach .teacher{width:140px}
+.qcard{background:linear-gradient(180deg,#fffdf5,#fef3c7);color:#0f2a5c;border-radius:28px;padding:clamp(16px,2.4vw,30px);border:6px solid var(--qc);box-shadow:0 24px 60px rgba(0,0,0,.6),0 0 0 4px rgba(255,255,255,.4) inset;position:relative;animation:pop .45s cubic-bezier(.3,1.6,.5,1)}
+@keyframes pop{from{transform:scale(.6) rotate(-3deg);opacity:0}to{transform:none;opacity:1}}
+.qcard.shake{animation:shake .5s}
+@keyframes shake{0%,100%{transform:none}20%{transform:translateX(-10px)}40%{transform:translateX(10px)}60%{transform:translateX(-6px)}80%{transform:translateX(6px)}}
+.qhead{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.chip{background:var(--qc);color:#fff;font-weight:700;border-radius:999px;padding:4px 14px;font-size:clamp(12px,1.4vw,16px);text-shadow:0 1px 2px rgba(0,0,0,.4)}
+.chip.o{background:#0f2a5c}
+.qtext{font-size:clamp(18px,2.5vw,29px);font-weight:700;line-height:1.3;margin-bottom:14px}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.opt{display:flex;align-items:center;gap:10px;text-align:left;background:#fff;border:3px solid #cbd5e1;border-radius:18px;padding:10px 12px;font-weight:600;font-size:clamp(15px,1.8vw,21px);color:#0f2a5c;box-shadow:0 5px 0 #cbd5e1;transition:.15s;line-height:1.25}
+.opt:hover:not([disabled]){transform:translateY(-3px);border-color:var(--blue);box-shadow:0 8px 0 #93c5fd}
+.opt .l{flex:none;width:2em;height:2em;border-radius:50%;display:grid;place-items:center;background:linear-gradient(180deg,#3b82f6,#1d4ed8);color:#fff;font-weight:700}
+.opt.ok{background:#dcfce7;border-color:#22c55e;box-shadow:0 5px 0 #16a34a;animation:okp .6s}
+.opt.ok .l{background:#16a34a}
+.opt.no{background:#fee2e2;border-color:#ef4444;box-shadow:0 5px 0 #dc2626}
+.opt.no .l{background:#dc2626}
+.opt[disabled]{cursor:default}
+.opt.dim{opacity:.55}
+@keyframes okp{0%,100%{transform:scale(1)}40%{transform:scale(1.05)}}
+.fb{margin-top:14px;border-radius:20px;padding:12px 16px;animation:pop .4s}
+.fb.good{background:linear-gradient(180deg,#bbf7d0,#86efac);border:3px solid #16a34a}
+.fb.bad{background:linear-gradient(180deg,#fed7aa,#fdba74);border:3px solid #ea580c}
+.fb h4{font-size:clamp(18px,2.4vw,28px);margin-bottom:4px}
+.fb.good h4{color:#14532d}.fb.bad h4{color:#7c2d12}
+.fb p{font-size:clamp(14px,1.6vw,19px);font-weight:500;line-height:1.35}
+.fb .pts{display:inline-block;margin-top:6px;background:#0f2a5c;color:#fde047;border-radius:999px;padding:2px 14px;font-weight:700}
+.qfoot{display:flex;justify-content:center;margin-top:14px}
+.star{position:fixed;font-size:34px;pointer-events:none;z-index:90;animation:rise 1.6s ease-out forwards}
+@keyframes rise{from{transform:translateY(0) scale(.4) rotate(0);opacity:1}to{transform:translateY(-240px) scale(1.4) rotate(360deg);opacity:0}}
+.hug{position:fixed;font-size:44px;pointer-events:none;z-index:90;animation:rise 1.8s ease-out forwards}
+#fx{position:fixed;inset:0;pointer-events:none;z-index:100;width:100%;height:100%}
+
+/* ---------- HASIL ---------- */
+#result{flex-direction:column;align-items:center;padding:20px;gap:14px;overflow:auto}
+#result h1{font-size:clamp(28px,5vw,56px);color:var(--gold);text-shadow:0 4px 0 #92400e,0 0 24px rgba(251,191,36,.6);text-align:center}
+.trophy{width:clamp(110px,16vw,170px);animation:tbounce 1.6s ease-in-out infinite;filter:drop-shadow(0 10px 20px rgba(251,191,36,.6))}
+@keyframes tbounce{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-16px) rotate(3deg)}}
+.podium{display:flex;align-items:flex-end;justify-content:center;gap:10px;margin-top:4px;flex-wrap:wrap}
+.pod{width:clamp(110px,16vw,170px);text-align:center}
+.pod .who{font-weight:700;font-size:clamp(14px,1.6vw,19px);margin-bottom:4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pod .tw{width:40px;margin:0 auto}
+.pod .blk{border-radius:14px 14px 0 0;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding-top:8px;font-weight:700;box-shadow:inset 0 3px 0 rgba(255,255,255,.4);animation:grow .9s cubic-bezier(.3,1.4,.5,1) backwards}
+.pod .blk b{font-size:clamp(26px,4vw,44px);line-height:1}
+.pod .blk span{font-size:15px}
+.pod.p1 .blk{height:150px;background:linear-gradient(180deg,#fde047,#d97706);color:#4a2c00}
+.pod.p2 .blk{height:112px;background:linear-gradient(180deg,#e2e8f0,#94a3b8);color:#1e293b}
+.pod.p3 .blk{height:84px;background:linear-gradient(180deg,#fdba74,#b45309);color:#431407}
+.pod.p4 .blk{height:60px;background:linear-gradient(180deg,#93c5fd,#2563eb);color:#fff}
+@keyframes grow{from{transform:scaleY(0);transform-origin:bottom}to{transform:scaleY(1);transform-origin:bottom}}
+.rtable{width:min(860px,100%)}
+.rtable table{width:100%;border-collapse:separate;border-spacing:0 6px;font-size:clamp(13px,1.6vw,18px)}
+.rtable th{color:#bae6fd;font-weight:600;padding:4px 8px;text-align:center}
+.rtable td{background:rgba(255,255,255,.1);padding:8px;text-align:center;font-weight:600}
+.rtable td:first-child{border-radius:14px 0 0 14px}.rtable td:last-child{border-radius:0 14px 14px 0}
+.rtable td.nm{text-align:left}
+.motiv{width:min(860px,100%);background:rgba(255,255,255,.1);border:2px dashed var(--cyan);border-radius:20px;padding:12px 18px;text-align:center;font-size:clamp(15px,1.8vw,21px);line-height:1.45}
+.motiv b{color:#fde047}
+
+/* ---------- RESPONSIF ---------- */
+@media (max-width:1100px){
+  #game{--bs:min(94vw,calc(100vh - 140px))}
+  .gmain{grid-template-columns:1fr 1fr}
+  .gmain .boardWrap{grid-column:1/-1;order:-1}
+  .home-wrap{grid-template-columns:1fr}
+  .home-right{min-height:300px}
+}
+@media (max-width:700px){
+  .gmain{grid-template-columns:1fr}
+  .qwrap{grid-template-columns:1fr}
+  .qteach{display:none}
+  .opts{grid-template-columns:1fr}
+  .pinputs{grid-template-columns:1fr}
+  .kelas-row{grid-template-columns:repeat(3,1fr)}
+  .home-teacher{width:36%}
+}
+@media (max-height:760px) and (min-width:1101px){
+  .teacherCard{grid-template-columns:80px 1fr}
+  .diceStage{height:110px}
+  .cube{--ds:64px}
+}
+.wave{transform-box:view-box;transform-origin:164px 165px;animation:wave 1.3s ease-in-out infinite}
+@keyframes wave{0%,100%{transform:rotate(0)}50%{transform:rotate(-14deg)}}
+.bob{animation:bob 2.4s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+</style>
+</head>
+<body>
+<canvas id="fx"></canvas>
+<div id="floatTools">
+  <button class="fbtn" id="fsBtn" title="Layar penuh" aria-label="Layar penuh" onclick="toggleFS()">⛶</button>
+  <button class="fbtn dev" id="devBtn" title="Pengembang" aria-label="Pengembang" onclick="toggleDev()">ℹ️</button>
+</div>
+<div id="devTip"><small>Informasi pengembang</small>Developed by : Jasrin R. Nupura, S.Pd., Gr.</div>
+<div id="toast"></div>
+
+<!-- ===================== HOME ===================== -->
+<section id="home" class="screen active">
+  <div class="music-btn" style="display:flex;gap:8px"><button class="btn sm" id="musicBtnHome" onclick="toggleMusic()">🎵 Musik: ON</button><button class="btn sm green" id="sfxBtnHome" onclick="toggleSfx()">🔊 Efek: ON</button></div>
+  <div class="floaters">
+    <span style="left:6%;top:14%">📖</span><span style="left:44%;top:6%;animation-delay:-2s">⭐</span>
+    <span style="left:8%;top:70%;animation-delay:-4s">🕌</span><span style="left:48%;top:84%;animation-delay:-1s">🤝</span>
+    <span style="right:6%;top:12%;animation-delay:-3s">🌙</span>
+  </div>
+  <div class="home-wrap">
+    <div class="home-left">
+      <div class="badge">Pendidikan Agama Islam • Kelas IV SD</div>
+      <h1 class="title">MONOPOLI<br>EDUKASI</h1>
+      <p class="subtitle">Indahnya Saling Menghargai dalam Keragaman</p>
+      <div class="menu">
+        <button class="btn gold glow" onclick="goSetup()">▶ MULAI BERMAIN</button>
+        <button class="btn" onclick="showHelp()">📘 PETUNJUK PERMAINAN</button>
+        <button class="btn green" onclick="showGoals()">🎯 TUJUAN PEMBELAJARAN</button>
+      </div>
+    </div>
+    <div class="home-right">
+      <div id="homeBoardBox"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== SETUP ===================== -->
+<section id="setup" class="screen">
+  <div class="panel setup-panel">
+    <h2>⚙️ Pengaturan Permainan</h2>
+    <p class="hint">Pilih jumlah pemain, lalu isi nama kelompok atau nama siswa.</p>
+    <div class="modes" id="modes"></div>
+    <div class="pinputs" id="pinputs"></div>
+    <div class="row-btn">
+      <button class="btn red" onclick="show('home')">⬅ KEMBALI</button>
+      <button class="btn gold glow" onclick="goMateri()">➡ LANJUT: PILIH MATERI</button>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== MATERI ===================== -->
+<section id="materi" class="screen">
+  <div class="panel mat-panel">
+    <h2>📚 Pilih Kelas &amp; Bab Soal</h2>
+    <p class="hint">Pilih kelas, lalu centang bab yang ingin dimainkan. Soal diambil dari bank soal PAI per bab.</p>
+    <div class="sec-t">1. Pilih Kelas</div>
+    <div class="kelas-row" id="kelasRow"></div>
+    <div class="sec-t">2. Pilih Bab (boleh lebih dari satu)</div>
+    <div id="babWrap">
+      <div class="bab-grid" id="babGrid"></div>
+      <div class="mat-tools">
+        <button class="btn sm green" onclick="babAll(true)">✔ PILIH SEMUA BAB</button>
+        <button class="btn sm red" onclick="babAll(false)">✖ HAPUS PILIHAN</button>
+      </div>
+    </div>
+    <button class="packbtn" id="packBtn" onclick="togglePack()"></button>
+    <div class="sumbox" id="sumBox"></div>
+    <div class="row-btn" style="margin-top:16px">
+      <button class="btn red" onclick="goSetup()">⬅ KEMBALI</button>
+      <button class="btn gold glow" id="startBtn" onclick="startGame()">🚀 MULAI PERMAINAN</button>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== GAME ===================== -->
+<section id="game" class="screen">
+  <div class="topbar">
+    <div class="turn" id="turnBar"></div>
+    <div class="tools">
+      <button class="btn sm purple" onclick="showScores()">🏅 LIHAT SKOR</button>
+      <button class="btn sm" onclick="showHelp()">📘 PETUNJUK</button>
+      <button class="btn sm" id="musicBtn" onclick="toggleMusic()">🎵 MUSIK ON</button>
+      <button class="btn sm green" id="sfxBtn" onclick="toggleSfx()">🔊 EFEK ON</button>
+      <button class="btn sm gold" onclick="askRestart()">🔄 MULAI ULANG</button>
+      <button class="btn sm red" onclick="askHome()">🏠 BERANDA</button>
+    </div>
+  </div>
+  <div class="gmain">
+    <aside class="side">
+      <div class="card"><h3>🏆 PAPAN SKOR</h3><div id="scoreList"></div></div>
+      <div class="card" style="font-size:13px;line-height:1.5">
+        <h3>🎨 Kategori Petak</h3>
+        <div><span style="color:#4ade80">■</span> Hijau: Pengetahuan dasar</div>
+        <div><span style="color:#60a5fa">■</span> Biru: Pemahaman materi</div>
+        <div><span style="color:#facc15">■</span> Kuning: Penerapan sikap</div>
+        <div><span style="color:#c084fc">■</span> Ungu: Tantangan</div>
+        <div><span style="color:#f87171">■</span> Merah: Soal tingkat lanjut</div>
+      </div>
+    </aside>
+    <div class="boardWrap">
+      <div class="boardBox"><div class="tilt" id="board"></div></div>
+    </div>
+    <aside class="side right">
+      <div class="card">
+        <div class="teacherCard">
+          <div class="teacher" id="gameTeacher"></div>
+          <div class="bubble" id="say">Assalamu'alaikum!</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="diceStage" onclick="rollDice()"><div class="diceJump" id="diceJump"><div class="cube" id="cube"></div></div></div>
+        <div class="dinfo" id="dinfo">Tekan tombol untuk melempar dadu</div>
+        <button class="btn gold glow" id="rollBtn" onclick="rollDice()">🎲 LEMPAR DADU</button>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<!-- ===================== HASIL ===================== -->
+<section id="result" class="screen"></section>
+
+<!-- ===================== MODAL ===================== -->
+<div class="overlay" id="qOverlay"></div>
+<div class="overlay" id="modal"><div class="panel modal" id="modalBody"></div></div>
+
+<script>
+/* =========================================================
+   DATA: BANK SOAL (20 soal, kunci jawaban sesuai naskah)
+   k = indeks jawaban benar (0=A,1=B,2=C,3=D)
+   ========================================================= */
+const BANK=[
+ {l:1,q:"Sikap yang baik ketika melihat teman memiliki perbedaan suku adalah ...",o:["Mengejeknya","Menghargainya","Menjauhinya","Mengucilkannya"],k:1,p:"Kita harus menghargai teman meskipun memiliki suku dan budaya yang berbeda."},
+ {l:1,q:"Allah Swt. menciptakan manusia dalam keadaan ...",o:["Sama semua","Berbeda-beda","Tidak beraturan","Saling bermusuhan"],k:1,p:"Allah menciptakan manusia dengan beragam suku dan bangsa agar saling mengenal."},
+ {l:1,q:"Surah yang menjelaskan bahwa manusia diciptakan berbangsa-bangsa dan bersuku-suku adalah ...",o:["Al-Fatihah","Al-Ikhlas","Al-Hujurat","An-Nas"],k:2,p:"Pesan tersebut terdapat dalam Q.S. Al-Hujurat ayat 13."},
+ {l:1,q:"Ketika teman sedang berbicara, sebaiknya kita ...",o:["Memotong pembicaraan","Mendengarkan dengan baik","Menertawakannya","Mengabaikannya"],k:1,p:"Mendengarkan orang lain merupakan bentuk menghargai sesama."},
+ {l:1,q:"Contoh perilaku hidup rukun di sekolah adalah ...",o:["Memilih-milih teman","Bertengkar saat bermain","Bekerja sama membersihkan kelas","Mengejek teman"],k:2,p:"Kerja sama menunjukkan sikap saling menghargai dan peduli."},
+ {l:2,q:"Dalam Q.S. Al-Hujurat ayat 13, manusia diciptakan berbangsa-bangsa dan bersuku-suku agar ...",o:["Saling membanggakan diri","Saling mengenal","Saling bersaing","Saling menjauhi"],k:1,p:"Tujuan keberagaman adalah agar manusia saling mengenal atau ta'aruf."},
+ {l:2,q:"Sikap yang tidak sesuai dengan ajaran Islam dalam menghadapi perbedaan adalah ...",o:["Menghormati","Menolong","Menghina","Bersahabat"],k:2,p:"Islam mengajarkan akhlak mulia dan melarang menghina orang lain."},
+ {l:2,q:"Jika teman memiliki kebiasaan budaya yang berbeda, kita sebaiknya ...",o:["Menghormatinya","Melarangnya","Mengejeknya","Memaksanya mengikuti kebiasaan kita"],k:0,p:"Menghormati budaya orang lain merupakan perilaku terpuji."},
+ {l:2,q:"Salah satu manfaat hidup rukun dalam keberagaman adalah ...",o:["Banyak permusuhan","Lingkungan menjadi damai","Sering terjadi pertengkaran","Tidak memiliki teman"],k:1,p:"Sikap saling menghargai menciptakan kehidupan yang aman dan damai."},
+ {l:2,q:"Orang yang paling mulia di sisi Allah Swt. adalah orang yang paling ...",o:["Kaya","Terkenal","Bertakwa","Kuat"],k:2,p:"Q.S. Al-Hujurat ayat 13 menjelaskan bahwa kemuliaan manusia ditentukan oleh ketakwaannya."},
+ {l:3,q:"Ketika teman yang berbeda agama sedang menjalankan ibadah, tindakan kita adalah ...",o:["Mengganggunya","Menghormati dan tidak mengganggunya","Mengejeknya","Melarangnya"],k:1,p:"Kita harus menghormati hak orang lain untuk menjalankan ibadah sesuai keyakinannya."},
+ {l:3,q:"Saat pembagian kelompok, ada teman yang berbeda suku dengan kita. Sikap terbaik adalah ...",o:["Menolaknya","Memilih teman yang sama saja","Menerimanya sebagai anggota kelompok","Membiarkannya bekerja sendiri"],k:2,p:"Kita harus bekerja sama tanpa membeda-bedakan suku."},
+ {l:3,q:"Jika terjadi perbedaan pendapat dalam diskusi, sebaiknya kita ...",o:["Memaksakan pendapat","Marah kepada teman","Mendengarkan dan bermusyawarah","Meninggalkan kelompok"],k:2,p:"Musyawarah membantu menyelesaikan perbedaan pendapat dengan baik."},
+ {l:3,q:"Mengapa kita tidak boleh merasa lebih baik daripada orang lain karena suku atau keturunan?",o:["Karena semua manusia harus kaya","Karena kemuliaan di sisi Allah ditentukan oleh ketakwaan","Karena semua manusia memiliki pekerjaan sama","Karena semua manusia harus memiliki budaya sama"],k:1,p:"Ketakwaan, bukan suku atau keturunan, menjadi ukuran kemuliaan di sisi Allah."},
+ {l:3,q:"Contoh menghargai keberagaman budaya Indonesia adalah ...",o:["Menertawakan pakaian adat daerah lain","Menganggap budaya sendiri paling baik","Mempelajari dan menghormati budaya daerah lain","Melarang teman mengenalkan budayanya"],k:2,p:"Mengenal dan menghormati budaya lain mempererat persatuan."},
+ {l:4,q:"Ketika melihat teman diejek karena berasal dari daerah yang berbeda, tindakan terbaik adalah ...",o:["Ikut mengejek","Diam dan membiarkannya","Membela dengan cara baik dan melaporkan kepada guru jika diperlukan","Menjauhi teman tersebut"],k:2,p:"Kita harus melindungi teman dari perundungan dan mengajak orang lain saling menghargai."},
+ {l:4,q:"Pesan utama Q.S. Al-Hujurat ayat 13 dalam kehidupan sehari-hari adalah ...",o:["Membanggakan asal daerah","Saling mengenal dan menghargai sesama manusia","Berteman dengan kelompok sendiri","Mengutamakan kekayaan"],k:1,p:"Ayat tersebut mengajarkan bahwa keberagaman menjadi sarana untuk saling mengenal dan menghargai."},
+ {l:4,q:"Ketika ada teman yang berbeda bahasa daerah, kita sebaiknya ...",o:["Menertawakan logatnya","Menghindarinya","Menghargai dan berusaha memahami","Memintanya tidak berbicara"],k:2,p:"Perbedaan bahasa tidak boleh menjadi alasan untuk merendahkan orang lain."},
+ {l:4,q:"Mengapa sikap saling menghargai penting dalam kehidupan masyarakat yang beragam?",o:["Agar setiap orang merasa paling benar","Agar tercipta persatuan, kedamaian, dan kerukunan","Agar tidak perlu bekerja sama","Agar setiap kelompok hidup sendiri"],k:1,p:"Saling menghargai membantu menjaga persatuan dan menciptakan kehidupan yang harmonis."},
+ {l:4,q:"Kamu terpilih menjadi ketua kelompok. Anggota kelompokmu berasal dari suku dan kebiasaan yang berbeda. Sikap yang paling tepat adalah ...",o:["Mengutamakan teman yang satu daerah","Memberikan tugas hanya kepada teman tertentu","Memperlakukan semua anggota secara adil dan bekerja sama","Meminta semua anggota mengikuti keinginanmu"],k:2,p:"Pemimpin yang baik harus adil, menghargai perbedaan, dan melibatkan semua anggota."}
+];
+const DATA={"1":{"1":{"t":"Al-Qur'an (Aku Cinta Al-Qur'an)","s":[["Mudah",1,"Kitab suci umat Islam adalah ....",["Injil","Al-Qur'an","Taurat","Zabur"],1],["Mudah",1,"Al-Qur'an diturunkan kepada Nabi ....",["Musa a.s.","Isa a.s.","Nuh a.s.","Muhammad saw."],3],["Mudah",1,"Huruf hijaiah yang pertama adalah ....",["ba","alif","ta","jim"],1],["Sulit",3,"Cara menghormati Al-Qur'an adalah ....",["melemparkannya","menduduki Al-Qur'an","memegangnya dengan sopan dan menyimpannya di tempat yang baik","meletakkannya di lantai kotor"],2],["Sulit",3,"Saat membaca Al-Qur'an, sikap yang benar adalah ....",["tenang, tertib, dan penuh hormat","bermain sambil membaca","membaca sambil berlari","berteriak keras-keras"],0]]},"2":{"t":"Allah Pencipta dan rukun iman","s":[["Mudah",1,"Pencipta alam semesta adalah ....",["Allah Swt.","manusia","malaikat","hewan"],0],["Sedang",2,"Rukun iman berjumlah ....",["lima","tujuh","empat","enam"],3],["Sulit",3,"Pernyataan yang benar adalah ....",["hewan bukan ciptaan Allah Swt.","hewan dan tumbuhan adalah ciptaan Allah Swt.","tumbuhan ada dengan sendirinya","hanya manusia ciptaan Allah Swt."],1]]},"3":{"t":"Adab dan ucapan sehari-hari","s":[["Mudah",1,"Bacaan basmalah adalah ....",["Alhamdulillah","Allahu Akbar","Bismillahirrahmanirrahim","Subhanallah"],2],["Sedang",2,"Ucapan syukur kepada Allah Swt. adalah ....",["Alhamdulillah","Astaghfirullah","Innalillahi","Masyaallah"],0],["Sedang",2,"Jawaban dari salam \"Assalamu'alaikum\" adalah ....",["Selamat pagi","Terima kasih","Wa'alaikumussalam","Sampai jumpa"],2],["Sulit",3,"Sebelum makan, kita membaca ....",["bismillah","amin","assalamu'alaikum","alhamdulillah"],0]]},"4":{"t":"Salat dan masjid","s":[["Sedang",2,"Tempat umat Islam salat berjamaah adalah ....",["pasar","masjid","lapangan bola","terminal"],1]]},"5":{"t":"Akhlak dan keteladanan","s":[["Sedang",2,"Nabi dan rasul terakhir adalah ....",["Nabi Nuh a.s.","Nabi Ibrahim a.s.","Nabi Musa a.s.","Nabi Muhammad saw."],3],["Sulit",3,"Contoh perilaku anak saleh adalah ....",["membantah orang tua","berkata kasar","malas belajar","patuh dan hormat kepada orang tua"],3]]}},"2":{"1":{"t":"Al-Qur'an (Surah An-Nas)","s":[["Mudah",1,"Surah An-Nas terdiri atas ....",["3 ayat","4 ayat","6 ayat","10 ayat"],2]]},"2":{"t":"Mari Mengenal Allah Swt. (Asmaulhusna, malaikat)","s":[["Mudah",1,"Allah Al-Hafiz artinya Allah Maha ....",["Mendengar","Memelihara","Melihat","Pengasih"],1],["Mudah",1,"Allah Al-Khabir artinya Allah Maha ....",["Memberi","Mengampuni","Kuasa","Teliti"],3],["Mudah",1,"Allah Al-Wali artinya Allah Maha ....",["Melindungi","Menghukum","Menciptakan","Memberi rezeki saja"],0],["Sedang",2,"Malaikat Jibril bertugas ....",["meniup sangkakala","mencabut nyawa","menjaga neraka","menyampaikan wahyu kepada para nabi"],3],["Sedang",2,"Malaikat yang bertugas mencatat amal baik manusia adalah ....",["Raqib","Atid","Mikail","Israfil"],0]]},"3":{"t":"Ayo Berperilaku Terpuji","s":[["Sedang",2,"Bertutur kata lembut artinya berbicara dengan ....",["suara keras","kata-kata kasar","sopan dan tidak menyakiti perasaan orang lain","ejekan"],2],["Sedang",2,"Empati adalah ....",["mengejek orang yang sedih","ikut merasakan perasaan orang lain","tidak peduli pada teman","menyalahkan orang lain"],1],["Sulit",3,"Sikap jujur ditunjukkan dengan ....",["menyalahkan teman","menyembunyikan kesalahan","mengakui kesalahan dengan berani","berbohong agar selamat"],2],["Sulit",3,"Dina melihat Budi sedih karena mainannya hilang. Sikap empati Dina adalah ....",["menertawakan Budi","menghibur Budi dan membantu mencarinya","pergi meninggalkan Budi","memarahi Budi"],1]]},"4":{"t":"Alhamdulillah, Aku Bisa Salat (azan)","s":[["Mudah",1,"Azan dikumandangkan untuk ....",["menandai waktu bermain","memulai pelajaran sekolah","memberi tahu bahwa waktu salat telah tiba","memanggil hewan"],2],["Sedang",2,"Orang yang mengumandangkan azan disebut ....",["imam","muazin","makmum","khatib"],1],["Sulit",3,"Saat mendengar azan, sikap yang sebaiknya kita lakukan adalah ....",["terus bermain tanpa peduli","berbicara keras-keras","menutup telinga","menjawab azan dan bersiap melaksanakan salat"],3]]},"5":{"t":"Kisah Nabi Nuh a.s.","s":[["Sulit",3,"Nabi Nuh a.s. dikenal memiliki sifat ....",["pemarah dan malas","sombong dan kikir","pendendam","sabar dan kerja keras"],3],["Sulit",3,"Nabi Nuh a.s. mendapat perintah Allah Swt. untuk membuat ....",["kapal","menara","istana","jembatan"],0]]}},"3":{"1":{"t":"Al-Qur'an","s":[["Sedang",2,"Surah Al-Fatihah terdiri atas ....",["3 ayat","7 ayat","5 ayat","10 ayat"],1]]},"2":{"t":"Asmaulhusna","s":[["Mudah",1,"Asmaulhusna As-Sami' artinya Maha ....",["Melihat","Mengetahui","Mendengar","Memberi"],2],["Mudah",1,"Asmaulhusna Al-'Alim artinya Maha ....",["Mendengar","Mengetahui","Pengasih","Perkasa"],1],["Mudah",1,"Asmaulhusna Al-Wahhab artinya Maha ....",["Penyayang","Pencipta","Pengampun","Pemberi"],3],["Sulit",3,"Cara mensyukuri nikmat pendengaran sesuai makna As-Sami' adalah ....",["menyumbat telinga dari nasihat","menggunakan telinga untuk mendengarkan nasihat dan kebaikan","mendengarkan gosip","mengabaikan panggilan orang tua"],1]]},"3":{"t":"Rukun Islam dan malaikat","s":[["Mudah",1,"Rukun Islam yang pertama adalah ....",["mengucapkan dua kalimat syahadat","salat","zakat","puasa"],0],["Sedang",2,"Rukun Islam berjumlah ....",["empat","enam","lima","tujuh"],2],["Sedang",2,"Malaikat yang bertugas meniup sangkakala pada hari kiamat adalah ....",["Jibril","Mikail","Israfil","Munkar"],2]]},"4":{"t":"Ibadah (salat, wudu)","s":[["Mudah",1,"Salat fardu dalam sehari semalam berjumlah ....",["5 waktu","3 waktu","4 waktu","6 waktu"],0],["Sedang",2,"Bersuci dari hadas kecil dilakukan dengan cara ....",["mandi saja","makan","tidur","berwudu"],3],["Sedang",2,"Salah satu rukun wudu adalah ....",["membasuh muka","membaca surah panjang","menyisir rambut","mencuci piring"],0]]},"5":{"t":"Akhlak dan keteladanan Nabi","s":[["Sulit",3,"Nabi Muhammad saw. dijuluki Al-Amin karena beliau ....",["sangat kaya","dapat dipercaya","sangat kuat","pandai berdagang saja"],1],["Sulit",3,"Sifat wajib rasul \"tabligh\" artinya ....",["jujur","dapat dipercaya","cerdas","menyampaikan"],3],["Sulit",3,"Contoh sikap mandiri adalah ....",["merapikan tempat tidur sendiri","menunggu disuruh terus","meminta dibantu semuanya","menyuruh adik melakukannya"],0],["Sulit",3,"Sikap percaya diri yang baik adalah ....",["takut mencoba","sombong dengan kemampuan","berani tampil dengan persiapan dan tidak sombong","meremehkan teman"],2]]}},"4":{"1":{"t":"Q.S. al-Hujurat/49:13 (keragaman dan takwa)","s":[["Mudah",1,"Q.S. al-Hujurat/49:13 menjelaskan bahwa manusia diciptakan berbangsa-bangsa dan bersuku-suku agar ....",["saling bermusuhan","saling menjauh","saling bersaing tidak sehat","saling mengenal"],3],["Mudah",1,"Takwa artinya ....",["melaksanakan perintah Allah Swt. dan menjauhi larangan-Nya","takut kepada manusia","mengikuti hawa nafsu","mengabaikan perintah agama"],0],["Sedang",2,"Sikap yang sesuai dengan Q.S. al-Hujurat/49:13 adalah ....",["tidak mengejek teman yang berbeda suku","mengejek logat teman","memilih teman hanya dari satu suku","merendahkan bahasa daerah lain"],0],["Sulit",3,"Menurut Q.S. al-Hujurat/49:13, orang yang paling mulia di sisi Allah Swt. adalah ....",["yang paling kaya","yang paling bertakwa","yang paling pandai berbicara","yang berasal dari suku tertentu"],1],["Sulit",3,"Budi berbeda suku dengan Ali. Sikap Ali yang sesuai ajaran Islam adalah ....",["berteman baik karena yang membedakan di sisi Allah Swt. adalah takwa","menjauhi Budi karena berbeda suku","mengejek bahasa Budi","tidak mau sekelompok dengan Budi"],0],["Sulit",3,"Perbedaan suku dan bahasa sebaiknya dipandang sebagai ....",["alasan untuk berpisah","penyebab permusuhan","tanda kebesaran Allah Swt. dan kekayaan yang harus dihargai","hal yang harus dihilangkan"],2]]},"2":{"t":"Asmaulhusna","s":[["Sedang",2,"Asmaulhusna Ar-Rahman artinya Maha ....",["Pengasih","Perkasa","Mengetahui","Memberi"],0],["Sedang",2,"Asmaulhusna Al-Basir artinya Maha ....",["Mendengar","Mengetahui","Melihat","Menciptakan"],2]]},"3":{"t":"Kewajiban anak balig","s":[["Mudah",1,"Anak yang sudah balig berarti ....",["belum bertanggung jawab","belum perlu salat","sudah wajib menjalankan ajaran agama","tidak punya kewajiban"],2],["Mudah",1,"Salah satu tanda anak laki-laki telah balig adalah ....",["tinggi badan 150 cm","mimpi basah","berusia 7 tahun","mulai masuk sekolah"],1],["Mudah",1,"Salah satu tanda anak perempuan telah balig adalah ....",["berambut panjang","pandai memasak","senang bermain","haid"],3],["Sulit",3,"Contoh kewajiban anak balig dalam hal akidah adalah ....",["mengejek teman","berbohong","beriman kepada rukun iman","meninggalkan salat"],2],["Sulit",3,"Seorang Muslim yang telah balig bertanggung jawab ....",["atas perbuatan semua temannya","hanya kepada guru","kepada kepala desa saja","mempertanggungjawabkan perbuatannya sendiri kepada Allah Swt."],3]]},"4":{"t":"Salat","s":[["Sedang",2,"Hukum salat fardu bagi umat Islam yang sudah balig adalah ....",["sunah","wajib","mubah","makruh"],1]]},"5":{"t":"Akhlak santun","s":[["Sedang",2,"Berkata sopan dan tidak menyakiti teman termasuk sikap ....",["sombong","kasar","acuh","santun"],3]]}},"5":{"1":{"t":"Rukun iman dan kitab Allah","s":[["Mudah",1,"Iman kepada kitab Allah merupakan rukun iman yang ke-....",["satu","tiga","lima","enam"],1],["Mudah",1,"Iman kepada hari akhir berarti percaya bahwa ....",["dunia kekal selamanya","tidak ada kehidupan setelah mati","kiamat tidak ada","kiamat pasti terjadi"],3],["Sedang",2,"Kitab Zabur diturunkan kepada Nabi ....",["Musa a.s.","Daud a.s.","Isa a.s.","Muhammad saw."],1]]},"2":{"t":"Q.S. at-Tin dan al-Ma'un","s":[["Mudah",1,"Q.S. at-Tin menjelaskan bahwa manusia diciptakan Allah Swt. dalam bentuk ....",["sebaik-baiknya","paling lemah","paling kecil","tanpa akal"],0],["Mudah",1,"Q.S. al-Ma'un mencela orang yang ....",["menolong orang miskin","menyayangi anak yatim","menghardik anak yatim dan tidak peduli pada orang miskin","rajin bersedekah"],2]]},"3":{"t":"Keragaman dan saling menghargai","s":[["Sedang",2,"Sikap saling menghargai dalam keragaman ditunjukkan dengan ....",["memaksakan kehendak","mengejek perbedaan","menjauhi teman yang berbeda","tidak memaksakan pendapat sendiri"],3],["Sulit",3,"Pada Q.S. al-Kafirun ayat 6, prinsip toleransi yang diajarkan adalah ....",["bagimu agamamu dan bagiku agamaku","semua agama sama","memaksa orang lain berpindah agama","mengganggu ibadah orang lain"],0],["Sulit",3,"Bangsa Indonesia dapat bersatu meski beragam karena ....",["semua orang sama persis","saling menghargai perbedaan","tidak ada perbedaan","saling menjauh"],1]]},"4":{"t":"Puasa Ramadan","s":[["Mudah",1,"Puasa wajib dilaksanakan pada bulan ....",["Syawal","Ramadan","Muharam","Zulhijah"],1],["Sedang",2,"Puasa dilakukan sejak ....",["subuh sampai zuhur","pagi sampai siang","malam sampai pagi","terbit fajar sampai terbenam matahari"],3],["Sedang",2,"Hal yang membatalkan puasa adalah ....",["makan dan minum dengan sengaja","menyikat gigi","membaca Al-Qur'an","tidur siang"],0],["Sedang",2,"Salah satu hikmah puasa adalah ....",["membuat malas","membuat sombong","melatih kesabaran dan kepedulian kepada orang yang kekurangan","mengurangi rasa syukur"],2],["Sulit",3,"Sikap yang menyempurnakan ibadah puasa adalah ....",["berbohong saat puasa","marah-marah","bergunjing dengan teman","menjaga lisan dan perbuatan dari hal yang buruk"],3],["Sulit",3,"Rani berpuasa tetapi sering berkata kasar kepada temannya. Pernyataan yang tepat adalah ....",["puasa seharusnya juga melatih menjaga ucapan dan perilaku","puasa Rani tidak berkaitan dengan perilaku","berkata kasar saat puasa tidak masalah","puasa hanya soal menahan makan"],0]]},"5":{"t":"Zakat","s":[["Sulit",3,"Zakat fitrah dikeluarkan pada ....",["bulan Zulhijah","bulan Rajab","bulan Ramadan sebelum salat Idulfitri","setelah Idulfitri berlalu lama"],2]]}},"6":{"1":{"t":"Iman kepada qadha dan qadar, tawakal","s":[["Mudah",1,"Iman kepada qadha dan qadar berarti percaya kepada ....",["kebetulan","nasib buruk saja","ketentuan dan takdir Allah Swt.","kekuatan benda keramat"],2],["Mudah",1,"Rukun iman yang terakhir adalah iman kepada ....",["hari akhir","qadha dan qadar","rasul","malaikat"],1],["Mudah",1,"Tawakal artinya ....",["menyerah tanpa usaha","malas berusaha","bergantung pada orang lain","berserah diri kepada Allah Swt. setelah berusaha"],3],["Sulit",3,"Andi tidak lulus lomba setelah berlatih keras. Sikap yang sesuai dengan iman kepada qadha dan qadar adalah ....",["menyalahkan Allah Swt.","bersabar, mengambil hikmah, dan terus berusaha","berhenti berusaha selamanya","menyalahkan teman"],1]]},"2":{"t":"Toleransi dan simpati","s":[["Mudah",1,"Sikap toleran artinya ....",["menghargai perbedaan","memaksakan pendapat","mengejek yang berbeda","tidak mau bergaul"],0],["Sulit",3,"Simpati adalah ....",["rasa peduli dan ingin membantu orang yang sedang kesulitan","rasa iri terhadap orang lain","rasa benci kepada teman","rasa tidak peduli"],0],["Sulit",3,"Contoh sikap toleran antarumat beragama adalah ....",["mengganggu ibadah teman","memaksa teman ikut ibadah kita","membiarkan teman beribadah sesuai keyakinannya tanpa mengganggu","mengejek ibadah teman"],2]]},"3":{"t":"Zakat","s":[["Sedang",2,"Zakat adalah ....",["membuang harta","mengeluarkan sebagian harta untuk diberikan kepada yang berhak","menyimpan seluruh harta","memberikan harta untuk pamer"],1],["Sedang",2,"Golongan yang berhak menerima zakat (asnaf) berjumlah ....",["dua golongan","lima golongan","sepuluh golongan","delapan golongan"],3]]},"4":{"t":"Haji","s":[["Mudah",1,"Rukun Islam yang kelima adalah ....",["salat","zakat","haji bagi yang mampu","puasa"],2],["Sedang",2,"Ibadah haji dilaksanakan di kota suci ....",["Makkah","Yerusalem","Kairo","Damaskus"],0],["Sedang",2,"Salah satu rukun haji adalah ....",["bermain di Padang pasir","berbelanja","wukuf di Padang Arafah","berwisata"],2]]},"5":{"t":"Kurban dan Iduladha","s":[["Sedang",2,"Hari Raya Iduladha berkaitan dengan kisah Nabi ....",["Nuh a.s. dan kapalnya","Ibrahim a.s. dan putranya Ismail a.s.","Musa a.s. dan Firaun","Yusuf a.s. dan sumur"],1],["Sulit",3,"Hukum berkurban bagi yang mampu menurut sebagian besar ulama adalah ....",["haram","makruh","mubah","sunah muakadah"],3],["Sulit",3,"Penyembelihan hewan kurban dilaksanakan pada ....",["sebelum salat Iduladha","bulan Ramadan","pada malam hari raya Idulfitri","setelah salat Iduladha sampai akhir hari tasyrik"],3]]}}};
+const LEVEL=["","Level 1 – Mudah","Level 2 – Sedang","Level 3 – Penerapan","Level 4 – Tantangan"];
+
+/* kategori warna per petak (1..20) */
+const CAT={
+ hijau:{n:"Pengetahuan Dasar",c1:"#4ade80",c2:"#15803d",q:"#16a34a"},
+ biru:{n:"Pemahaman Materi",c1:"#60a5fa",c2:"#1d4ed8",q:"#2563eb"},
+ kuning:{n:"Penerapan Sikap",c1:"#fde047",c2:"#ca8a04",q:"#ca8a04"},
+ ungu:{n:"Tantangan",c1:"#c084fc",c2:"#7e22ce",q:"#7e22ce"},
+ merah:{n:"Soal Tingkat Lanjut",c1:"#f87171",c2:"#b91c1c",q:"#dc2626"}
+};
+const TILE_CAT=["hijau","hijau","hijau","hijau","hijau","biru","biru","biru","biru","biru","kuning","kuning","kuning","kuning","kuning","ungu","ungu","ungu","merah","merah"];
+const ICONS=["🚩","📖","🕌","⭐","🤝","🌍","👫","📚","🌙","💡","🕋","🧩","🎯","🌈","🏫","💖","🛡️","🗣️","🔥","🏆"];
+const LABELS={1:"START",20:"FINISH"};
+const PCOL=[{n:"Merah",c:"#ef4444"},{n:"Biru",c:"#3b82f6"},{n:"Kuning",c:"#facc15"},{n:"Hijau",c:"#22c55e"}];
+
+/* =========================================================
+   STATE
+   ========================================================= */
+const S={kelas:4,babSel:new Set([1,2,3,4,5]),pack:"bab",bank:[],n:2,names:[],players:[],cur:0,phase:"idle",answered:new Set(),finishTriggered:false,musicOn:true,sfxOn:true,qLock:false,rolled:0};
+
+/* =========================================================
+   UTIL
+   ========================================================= */
+const $=id=>document.getElementById(id);
+const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+function show(id){document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));$(id).classList.add("active");window.scrollTo(0,0);if(id!=="result")stopConfetti();}
+function openModal(html){ $("modalBody").className="panel modal"; $("modalBody").innerHTML=html; $("modal").classList.add("show"); }
+function closeModal(){ $("modal").classList.remove("show"); }
+
+/* =========================================================
+   SVG: GURU, PION
+   ========================================================= */
+function teacherSVG(mood){
+  const mouth = mood==="sad"
+    ? '<path d="M90 120 Q100 111 110 120" fill="none" stroke="#9a3b3b" stroke-width="3.5" stroke-linecap="round"/>'
+    : mood==="cheer"
+    ? '<path d="M84 107 Q100 134 116 107 Z" fill="#9b1c3a"/><path d="M88 108 Q100 114 112 108 L112 111 Q100 117 88 111Z" fill="#fff"/><path d="M93 123 Q100 118 107 123 Q100 129 93 123Z" fill="#f87171"/>'
+    : '<path d="M88 109 Q100 123 112 109 Z" fill="#9b1c3a"/><path d="M90 109 Q100 114 110 109 L110 111 Q100 116 90 111Z" fill="#fff"/>';
+  const brows = mood==="sad"
+    ? '<path d="M74 79 L92 74" stroke="#3a2418" stroke-width="3.5" stroke-linecap="round"/><path d="M126 79 L108 74" stroke="#3a2418" stroke-width="3.5" stroke-linecap="round"/>'
+    : '<path d="M74 77 Q83 71 92 77" fill="none" stroke="#3a2418" stroke-width="3.5" stroke-linecap="round"/><path d="M108 77 Q117 71 126 77" fill="none" stroke="#3a2418" stroke-width="3.5" stroke-linecap="round"/>';
+  const eyes = mood==="cheer"
+    ? '<path d="M76 90 Q83 82 90 90" fill="none" stroke="#222" stroke-width="3.5" stroke-linecap="round"/><path d="M110 90 Q117 82 124 90" fill="none" stroke="#222" stroke-width="3.5" stroke-linecap="round"/>'
+    : '<ellipse cx="83" cy="90" rx="5.5" ry="6.5" fill="#fff"/><ellipse cx="117" cy="90" rx="5.5" ry="6.5" fill="#fff"/><circle cx="83" cy="91" r="4.2" fill="#3a2418"/><circle cx="117" cy="91" r="4.2" fill="#3a2418"/><circle cx="84.5" cy="89.4" r="1.4" fill="#fff"/><circle cx="118.5" cy="89.4" r="1.4" fill="#fff"/><path d="M76 85 Q78 82 80 83 M124 85 Q122 82 120 83" stroke="#222" stroke-width="2" fill="none" stroke-linecap="round"/>';
+  const rightArm = mood==="sad"
+    ? '<rect x="150" y="165" width="28" height="75" rx="14" fill="#cfae72" transform="rotate(-8 164 165)"/><circle cx="178" cy="243" r="13" fill="#f2c19a"/>'
+    : '<g class="wave"><rect x="150" y="92" width="28" height="78" rx="14" fill="#cfae72" transform="rotate(14 164 165)"/><circle cx="173" cy="92" r="13" fill="#f2c19a" transform="rotate(14 164 165)"/></g>';
+  return `<svg viewBox="0 0 200 262" xmlns="http://www.w3.org/2000/svg">
+  <rect x="22" y="165" width="30" height="76" rx="15" fill="#cfae72" transform="rotate(6 37 165)"/><circle cx="28" cy="244" r="13" fill="#f2c19a"/>
+  ${rightArm}
+  <path d="M30 262 Q30 166 72 150 L128 150 Q170 166 170 262 Z" fill="#d9b97b"/>
+  <line x1="100" y1="180" x2="100" y2="262" stroke="#a8864f" stroke-width="2"/>
+  <rect x="58" y="206" width="32" height="28" rx="4" fill="#c9a766" stroke="#a8864f" stroke-width="2"/><rect x="110" y="206" width="32" height="28" rx="4" fill="#c9a766" stroke="#a8864f" stroke-width="2"/>
+  <rect x="58" y="206" width="32" height="9" rx="3" fill="#b8955a"/><rect x="110" y="206" width="32" height="9" rx="3" fill="#b8955a"/>
+  <circle cx="100" cy="206" r="3.2" fill="#8a6d3b"/><circle cx="100" cy="226" r="3.2" fill="#8a6d3b"/><circle cx="100" cy="246" r="3.2" fill="#8a6d3b"/>
+  <rect x="48" y="160" width="28" height="9" rx="3" fill="#8a6d3b" transform="rotate(-20 62 164)"/><rect x="124" y="160" width="28" height="9" rx="3" fill="#8a6d3b" transform="rotate(20 138 164)"/>
+  <path d="M52 92 Q48 30 100 28 Q152 30 148 92 Q150 124 166 172 Q100 204 34 172 Q50 124 52 92Z" fill="#0d9488"/>
+  <path d="M52 92 Q48 30 100 28 Q152 30 148 92 Q150 124 166 172 Q100 204 34 172 Q50 124 52 92Z" fill="url(#hj)" opacity=".5"/>
+  <defs><linearGradient id="hj" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5eead4"/><stop offset="1" stop-color="#064e3b"/></linearGradient></defs>
+  <path d="M70 150 Q100 170 130 150 M100 158 L100 196" stroke="#0b6f66" stroke-width="3" fill="none" opacity=".6" stroke-linecap="round"/>
+  <ellipse cx="100" cy="90" rx="35" ry="40" fill="#f2c19a"/>
+  <path d="M66 70 Q100 36 134 70 Q100 54 66 70Z" fill="#0d9488"/>
+  <ellipse cx="100" cy="90" rx="36" ry="41" fill="none" stroke="#0b6f66" stroke-width="4"/>
+  <circle cx="75" cy="105" r="7" fill="#f87171" opacity=".35"/><circle cx="125" cy="105" r="7" fill="#f87171" opacity=".35"/>
+  ${brows}${eyes}
+  <path d="M97 97 Q100 103 103 97" fill="none" stroke="#c98d64" stroke-width="2.6" stroke-linecap="round"/>
+  ${mouth}
+  <circle cx="100" cy="172" r="6" fill="#fbbf24" stroke="#b45309" stroke-width="1.5"/><circle cx="100" cy="172" r="2.4" fill="#f472b6"/>
+  <circle cx="128" cy="196" r="6" fill="#fbbf24" stroke="#b45309" stroke-width="1.5"/><path d="M125 196 l3 -4 l3 4 l-3 4z" fill="#b45309"/>
+  <rect x="64" y="191" width="22" height="8" rx="2" fill="#fff"/><rect x="66" y="194" width="14" height="2" fill="#94a3b8"/>
+  </svg>`;
+}
+function pawnSVG(){
+  return `<svg viewBox="0 0 40 56" xmlns="http://www.w3.org/2000/svg">
+  <ellipse cx="20" cy="52" rx="16" ry="4" fill="#000" opacity=".3"/>
+  <path d="M5 51 Q5 42 14 40 L26 40 Q35 42 35 51 Z" fill="currentColor" stroke="rgba(0,0,0,.4)" stroke-width="1.2"/>
+  <path d="M14 40 Q16 26 17.5 20 L22.5 20 Q24 26 26 40 Z" fill="currentColor" stroke="rgba(0,0,0,.4)" stroke-width="1.2"/>
+  <ellipse cx="20" cy="21" rx="9" ry="3" fill="currentColor" stroke="rgba(0,0,0,.4)" stroke-width="1.2"/>
+  <circle cx="20" cy="12" r="9" fill="currentColor" stroke="rgba(0,0,0,.4)" stroke-width="1.2"/>
+  <path d="M5 51 Q5 42 14 40 L26 40 Q35 42 35 51 Z" fill="#000" opacity=".12"/>
+  <path d="M8 46 Q10 42 15 41" fill="none" stroke="#fff" stroke-width="2" opacity=".5" stroke-linecap="round"/>
+  <ellipse cx="16" cy="8.5" rx="3.2" ry="4.2" fill="#fff" opacity=".55" transform="rotate(-20 16 8.5)"/>
+  <path d="M17 24 Q18 32 17.5 38" stroke="#fff" stroke-width="1.6" opacity=".35" fill="none"/>
+  </svg>`;
+}
+const SCENE=`<svg class="scene" viewBox="0 0 400 400" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <defs><radialGradient id="sun" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#fff9c4"/><stop offset="1" stop-color="#fde047" stop-opacity="0"/></radialGradient></defs>
+  <circle cx="340" cy="70" r="60" fill="url(#sun)"/><circle cx="340" cy="70" r="22" fill="#fde047"/>
+  <g fill="#fff" opacity=".9"><ellipse cx="80" cy="120" rx="34" ry="12"/><ellipse cx="100" cy="112" rx="22" ry="12"/><ellipse cx="270" cy="150" rx="30" ry="10"/><ellipse cx="288" cy="143" rx="18" ry="10"/></g>
+  <path d="M0 300 Q100 270 200 295 T400 285 L400 400 L0 400Z" fill="#4ade80"/>
+  <path d="M0 330 Q120 305 220 328 T400 318 L400 400 L0 400Z" fill="#22c55e"/>
+  <!-- masjid -->
+  <g transform="translate(205,0)">
+    <rect x="10" y="215" width="120" height="85" fill="#fef3c7" stroke="#d6b86a" stroke-width="2"/>
+    <path d="M30 215 Q70 150 110 215Z" fill="#14b8a6" stroke="#0f766e" stroke-width="2"/>
+    <rect x="68" y="140" width="4" height="14" fill="#fbbf24"/><circle cx="70" cy="138" r="5" fill="#fbbf24"/>
+    <path d="M62 150 a8 8 0 1 0 8 6 a6 6 0 1 1 -8 -6Z" fill="#fbbf24"/>
+    <rect x="-8" y="170" width="22" height="130" fill="#fef3c7" stroke="#d6b86a" stroke-width="2"/><path d="M-10 170 L3 140 L16 170Z" fill="#14b8a6"/>
+    <rect x="126" y="170" width="22" height="130" fill="#fef3c7" stroke="#d6b86a" stroke-width="2"/><path d="M124 170 L137 140 L150 170Z" fill="#14b8a6"/>
+    <path d="M58 300 L58 255 Q70 235 82 255 L82 300Z" fill="#0f766e"/>
+    <rect x="25" y="235" width="16" height="22" rx="8" fill="#0f766e"/><rect x="99" y="235" width="16" height="22" rx="8" fill="#0f766e"/>
+  </g>
+  <!-- sekolah -->
+  <g transform="translate(15,0)">
+    <rect x="10" y="225" width="150" height="75" fill="#fb923c" stroke="#c2410c" stroke-width="2"/>
+    <path d="M0 225 L85 180 L170 225Z" fill="#dc2626" stroke="#991b1b" stroke-width="2"/>
+    <rect x="75" y="262" width="22" height="38" fill="#7c2d12"/>
+    <rect x="24" y="245" width="26" height="22" fill="#bae6fd" stroke="#fff" stroke-width="3"/><rect x="120" y="245" width="26" height="22" fill="#bae6fd" stroke="#fff" stroke-width="3"/>
+    <line x1="85" y1="180" x2="85" y2="150" stroke="#444" stroke-width="2"/><path d="M85 150 h24 v12 h-24Z" fill="#ef4444"/><path d="M85 162 h24 v6 h-24Z" fill="#fff" transform="translate(0,-6)"/>
+  </g>
+  <!-- anak-anak bergandengan -->
+  <g stroke="#fff" stroke-width="0">
+    ${[[95,"#ef4444","#fde68a"],[140,"#3b82f6","#e6ae86"],[185,"#facc15","#c98d64"],[230,"#22c55e","#f2c19a"],[275,"#a855f7","#8d5a3b"]].map((a,i)=>`
+    <g transform="translate(${a[0]},${338+(i%2)*4})">
+      <ellipse cx="0" cy="40" rx="14" ry="4" fill="#000" opacity=".15"/>
+      <rect x="-9" y="8" width="18" height="26" rx="8" fill="${a[1]}"/>
+      <rect x="-7" y="32" width="5" height="9" fill="#334155"/><rect x="2" y="32" width="5" height="9" fill="#334155"/>
+      <circle cx="0" cy="0" r="10" fill="${a[2]}"/><path d="M-10 -2 Q0 -14 10 -2 Q6 -8 0 -8 Q-6 -8 -10 -2Z" fill="#2b1d14"/>
+      <circle cx="-3.5" cy="0" r="1.3" fill="#222"/><circle cx="3.5" cy="0" r="1.3" fill="#222"/><path d="M-4 4 Q0 8 4 4" stroke="#7a2a2a" stroke-width="1.5" fill="none"/>
+    </g>`).join("")}
+    <path d="M104 352 L131 354 M149 354 L176 352 M194 352 L221 354 M239 354 L266 352" stroke="#e6ae86" stroke-width="5" stroke-linecap="round"/>
+  </g>
+  <text x="200" y="398" text-anchor="middle" font-size="0"> </text>
+</svg>`;
+
+/* =========================================================
+   SUARA (WebAudio)
+   ========================================================= */
+let AC=null,musicTimer=null,mStep=0;
+function ac(){ if(!AC){ try{AC=new (window.AudioContext||window.webkitAudioContext)();}catch(e){} } if(AC&&AC.state==="suspended")AC.resume(); return AC; }
+function tone(f,t0,d,type,v){ const a=AC; if(!a)return; const o=a.createOscillator(),g=a.createGain(); o.type=type||"sine"; o.frequency.value=f; g.gain.setValueAtTime(0.0001,t0); g.gain.exponentialRampToValueAtTime(v||.1,t0+.02); g.gain.exponentialRampToValueAtTime(0.0001,t0+d); o.connect(g);g.connect(a.destination);o.start(t0);o.stop(t0+d+.05); }
+function sfx(k){
+  if(!S.sfxOn||!ac())return; const t=AC.currentTime;
+  if(k==="click")tone(660,t,.08,"square",.05);
+  if(k==="roll"){for(let i=0;i<9;i++)tone(200+Math.random()*300,t+i*.13,.07,"square",.05);}
+  if(k==="step")tone(520+Math.random()*40,t,.1,"triangle",.12);
+  if(k==="ok"){[523,659,784,1047].forEach((f,i)=>tone(f,t+i*.11,.25,"triangle",.12));}
+  if(k==="no"){tone(330,t,.2,"sawtooth",.07);tone(262,t+.18,.3,"sawtooth",.07);}
+  if(k==="win"){[523,659,784,1047,784,1047,1319].forEach((f,i)=>tone(f,t+i*.16,.3,"triangle",.13));}
+  if(k==="card")tone(880,t,.12,"sine",.1),tone(1175,t+.1,.15,"sine",.1);
+}
+const MEL=[523,659,784,659,587,740,880,740,523,659,784,1047,988,784,659,587];
+const BASS=[262,262,196,196,220,220,175,196];
+function musicOn(){ if(musicTimer||!S.musicOn)return; if(!ac())return;
+  musicTimer=setInterval(()=>{ if(!AC)return; const t=AC.currentTime; tone(MEL[mStep%16],t,.24,"triangle",.03); if(mStep%2===0)tone(BASS[(mStep/2|0)%8],t,.45,"sine",.04); mStep++; },270); }
+function musicOff(){ clearInterval(musicTimer); musicTimer=null; }
+function toggleMusic(){ S.musicOn=!S.musicOn; if(S.musicOn)musicOn(); else musicOff(); sfx("click"); syncSoundBtns(); }
+function toggleSfx(){ const was=S.sfxOn; if(was)sfx("click"); S.sfxOn=!S.sfxOn; if(S.sfxOn)sfx("click"); syncSoundBtns(); }
+function syncSoundBtns(){
+  const m=S.musicOn,e=S.sfxOn;
+  $("musicBtn").textContent=m?"🎵 MUSIK ON":"🔇 MUSIK OFF"; $("sfxBtn").textContent=e?"🔊 EFEK ON":"🔇 EFEK OFF";
+  $("musicBtnHome").textContent=m?"🎵 Musik: ON":"🔇 Musik: OFF"; $("sfxBtnHome").textContent=e?"🔊 Efek: ON":"🔇 Efek: OFF";
+}
+document.addEventListener("pointerdown",()=>{ if(S.musicOn)musicOn(); },{once:true});
+
+/* =========================================================
+   CONFETTI
+   ========================================================= */
+const cv=$("fx"),cx=cv.getContext("2d");let parts=[],raf=null,contTimer=null;
+function sizeCv(){cv.width=innerWidth;cv.height=innerHeight;} addEventListener("resize",sizeCv);sizeCv();
+function burst(x,y,n,spread){ const cols=["#ef4444","#3b82f6","#facc15","#22c55e","#a855f7","#22d3ee","#fb923c","#fff"];
+  for(let i=0;i<n;i++){ const a=Math.random()*Math.PI*2,s=4+Math.random()*(spread||9);
+    parts.push({x,y,vx:Math.cos(a)*s,vy:Math.sin(a)*s-5,g:.18+Math.random()*.1,w:6+Math.random()*7,h:4+Math.random()*6,r:Math.random()*6,vr:(Math.random()-.5)*.4,c:cols[i%cols.length],life:110+Math.random()*60,star:Math.random()<.2}); }
+  if(!raf)loop(); }
+function rain(n){ const cols=["#ef4444","#3b82f6","#facc15","#22c55e","#a855f7","#22d3ee"]; for(let i=0;i<n;i++)parts.push({x:Math.random()*cv.width,y:-20,vx:(Math.random()-.5)*2,vy:2+Math.random()*3,g:.03,w:7+Math.random()*6,h:5+Math.random()*6,r:Math.random()*6,vr:(Math.random()-.5)*.3,c:cols[i%cols.length],life:260,star:Math.random()<.15}); if(!raf)loop(); }
+function loop(){ cx.clearRect(0,0,cv.width,cv.height); parts=parts.filter(p=>p.life>0&&p.y<cv.height+30);
+  for(const p of parts){ p.vy+=p.g;p.x+=p.vx;p.y+=p.vy;p.r+=p.vr;p.life--; cx.save();cx.translate(p.x,p.y);cx.rotate(p.r);cx.fillStyle=p.c;cx.globalAlpha=Math.min(1,p.life/40);
+    if(p.star){cx.font=p.w*2+"px serif";cx.fillText("⭐",-p.w,p.w);}else cx.fillRect(-p.w/2,-p.h/2,p.w,p.h); cx.restore(); }
+  if(parts.length)raf=requestAnimationFrame(loop); else{raf=null;cx.clearRect(0,0,cv.width,cv.height);} }
+function stopConfetti(){ clearInterval(contTimer);contTimer=null; }
+function stars(el){ const r=el.getBoundingClientRect(); for(let i=0;i<9;i++){ const s=document.createElement("div");s.className="star";s.textContent=i%3?"⭐":"✨";s.style.left=(r.left+Math.random()*r.width)+"px";s.style.top=(r.top+r.height*.5+Math.random()*60)+"px";s.style.animationDelay=(i*70)+"ms";document.body.appendChild(s);setTimeout(()=>s.remove(),2200);} }
+function hugs(el){ const r=el.getBoundingClientRect(); ["🤗","💪","🌱"].forEach((e,i)=>{const s=document.createElement("div");s.className="hug";s.textContent=e;s.style.left=(r.left+r.width*(.2+.3*i))+"px";s.style.top=(r.top+r.height*.6)+"px";s.style.animationDelay=(i*150)+"ms";document.body.appendChild(s);setTimeout(()=>s.remove(),2300);}); }
+
+/* =========================================================
+   PAPAN
+   ========================================================= */
+function cellRC(i){ if(i<=5)return[5,i]; if(i<=10)return[5-(i-5),5]; if(i<=15)return[0,5-(i-10)]; return[i-15,0]; }
+function boardHTML(){
+  let h='<div class="boardFrame"><div class="boardGrid">';
+  for(let i=0;i<20;i++){ const [r,c]=cellRC(i), cat=CAT[TILE_CAT[i]], n=i+1;
+    h+=`<div class="cell" data-i="${i}" style="grid-row:${r+1};grid-column:${c+1};--c1:${cat.c1};--c2:${cat.c2}"><span class="no">${n}</span><span class="ic">${ICONS[i]}</span>${LABELS[n]?`<span class="lb">${LABELS[n]}</span>`:""}</div>`; }
+  h+=`<div class="center">${SCENE}<div class="ct">MONOPOLI<br>EDUKASI</div></div>`;
+  h+='</div><div class="tokens"></div></div>';
+  return h;
+}
+const OFFS={1:[[0,0]],2:[[-2.4,0],[2.4,0]],3:[[-3,-1.2],[3,-1.2],[0,2.4]],4:[[-3,-1.4],[3,-1.4],[-3,2.6],[3,2.6]]};
+function syncTokens(root,players,activeIdx){
+  const layer=root.querySelector(".tokens"); const groups={};
+  players.forEach((p,i)=>{ const key=p.pos===0?-1:p.pos-1; (groups[key]=groups[key]||[]).push(i); });
+  players.forEach((p,i)=>{ let el=layer.querySelector(`[data-p="${i}"]`);
+    if(!el){ el=document.createElement("div");el.className="tok";el.dataset.p=i;el.style.setProperty("--pc",p.color);el.innerHTML=pawnSVG();layer.appendChild(el); }
+    const key=p.pos===0?-1:p.pos-1, ci=Math.max(0,p.pos-1), [r,c]=cellRC(ci), g=groups[key], k=g.indexOf(i), o=OFFS[Math.min(4,g.length)][k]||[0,0], sx=p.pos===0?-2.2:0;
+    el.style.left=`calc(${(c+.5)*100/6}% + ${o[0]+sx}cqw)`; el.style.top=`calc(${(r+.5)*100/6}% + ${o[1]}cqw)`;
+    el.classList.toggle("act",i===activeIdx); });
+  layer.querySelectorAll(".tok").forEach(t=>{ if(+t.dataset.p>=players.length)t.remove(); });
+}
+function markCell(){ document.querySelectorAll("#board .cell").forEach(c=>c.classList.remove("cur")); const p=S.players[S.cur]; if(p&&p.pos>0){const c=document.querySelector(`#board .cell[data-i="${p.pos-1}"]`);c&&c.classList.add("cur");} }
+
+/* dadu */
+function buildCube(){
+  const P={1:[4],2:[0,8],3:[0,4,8],4:[0,2,6,8],5:[0,2,4,6,8],6:[0,2,3,5,6,8]};
+  $("cube").innerHTML=[1,2,3,4,5,6].map(n=>`<div class="f f${n}">${Array.from({length:9},(_,i)=>`<i class="${P[n].includes(i)?"on":""}"></i>`).join("")}</div>`).join("");
+}
+const FACE={1:[0,0],2:[90,0],3:[0,-90],4:[0,90],5:[-90,0],6:[0,180]};
+async function animateDice(v){
+  const cube=$("cube"),j=$("diceJump"); S.rolled++;
+  const [rx,ry]=FACE[v], sx=360*(3+S.rolled%2), sy=360*(4+S.rolled%3);
+  cube.style.transition="transform 1.5s cubic-bezier(.15,.7,.2,1)";
+  cube.style.transform=`rotateX(${rx+sx}deg) rotateY(${ry+sy}deg)`;
+  j.classList.remove("rolling");void j.offsetWidth;j.classList.add("rolling");
+  await sleep(1550);
+}
+
+/* =========================================================
+   HOME / SETUP
+   ========================================================= */
+function initHome(){
+  document.querySelectorAll(".teacher[data-mood]").forEach(t=>t.innerHTML=teacherSVG(t.dataset.mood));
+  const hb=$("homeBoardBox"); hb.innerHTML='<div class="tilt" style="transform:none">'+boardHTML()+'</div>';
+  const demo=[{pos:3,color:PCOL[0].c},{pos:3,color:PCOL[1].c},{pos:9,color:PCOL[2].c},{pos:14,color:PCOL[3].c}];
+  requestAnimationFrame(()=>syncTokens(hb,demo,-1));
+}
+function goSetup(){ sfx("click"); renderSetup(); show("setup"); }
+function renderSetup(){
+  $("modes").innerHTML=[2,3,4].map(n=>`<button class="mode ${S.n===n?"sel":""}" onclick="setMode(${n})"><b>${n}</b>MODE ${n} PEMAIN</button>`).join("");
+  $("pinputs").innerHTML=Array.from({length:S.n},(_,i)=>`<div class="pin"><div style="color:${PCOL[i].c}">${pawnSVG()}</div><div style="flex:1"><label>Pemain ${i+1} • Pion ${PCOL[i].n}</label><input id="pn${i}" maxlength="18" placeholder="Kelompok ${i+1}" value="${esc(S.names[i]||"")}"></div></div>`).join("");
+}
+function setMode(n){ for(let i=0;i<S.n;i++){const e=$("pn"+i);if(e)S.names[i]=e.value;} S.n=n; sfx("click"); renderSetup(); }
+function savePlayers(){ const names=[]; for(let i=0;i<S.n;i++){ const e=$("pn"+i); const v=e?(e.value||"").trim():(S.names[i]||""); names.push(v||("Kelompok "+(i+1))); S.names[i]=v; } return names; }
+function goMateri(){ savePlayers(); sfx("click"); renderMateri(); show("materi"); }
+function startGame(){
+  const names=savePlayers();
+  if(S.pack==="bab"&&S.babSel.size===0){ toast("Pilih minimal satu bab dulu ya."); return; }
+  S.bank=buildBank(); newGame(names); show("game"); sfx("card");
+}
+function shuffle(a){ for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; }
+function poolFor(){ const pool=[]; [...S.babSel].sort().forEach(b=>{ const e=DATA[S.kelas]&&DATA[S.kelas][b]; if(!e)return; e.s.forEach(s=>pool.push({l:s[1],lt:"Level "+s[1]+" – "+s[0],q:s[2],o:s[3],k:s[4],p:"",bab:b,kelas:S.kelas,topik:e.t})); }); return pool; }
+function buildBank(){
+  if(S.pack==="bawaan") return BANK.map(b=>({...b,lt:LEVEL[b.l],bab:0,kelas:4,topik:"Indahnya Saling Menghargai dalam Keragaman"}));
+  let pool=shuffle(poolFor()); pool.sort((a,b)=>a.l-b.l);   // makin lanjut makin sulit (urutan acak di level yang sama)
+  if(pool.length>=20){ return shuffle(pool.slice()).slice(0,20).sort((a,b)=>a.l-b.l); }
+  const out=[]; for(let i=0;i<20;i++)out.push(pool[i%pool.length]); return out;
+}
+function renderMateri(){
+  $("kelasRow").innerHTML=[1,2,3,4,5,6].map(k=>`<button class="kbtn ${S.kelas===k?"sel":""}" onclick="setKelas(${k})">KELAS<b>${k}</b></button>`).join("");
+  $("babGrid").innerHTML=[1,2,3,4,5].map(b=>{ const e=DATA[S.kelas][b]; const on=S.babSel.has(b);
+    return `<button class="bab ${on?"sel":""}" onclick="toggleBab(${b})"><div class="ck">✔</div><div><b>Bab ${b}</b><span class="tp">${esc(e.t)}</span></div><div class="cnt">${e.s.length} soal</div></button>`; }).join("");
+  $("babWrap").classList.toggle("dim2",S.pack==="bawaan");
+  $("kelasRow").classList.toggle("dim2",S.pack==="bawaan");
+  const pb=$("packBtn"); pb.classList.toggle("sel",S.pack==="bawaan");
+  pb.innerHTML=(S.pack==="bawaan"?"✅ ":"⬜ ")+"<b>Paket Bawaan Kelas IV</b> – “Indahnya Saling Menghargai dalam Keragaman” (20 soal Q.S. Al-Hujurat) — ketuk untuk "+(S.pack==="bawaan"?"kembali memilih per bab":"memakai paket ini");
+  const sb=$("sumBox"); let n,msg,warn=false;
+  if(S.pack==="bawaan"){ n=20; msg="Paket bawaan: <b>20 soal</b>, satu soal untuk tiap petak."; }
+  else { n=poolFor().length;
+    if(n===0){ msg="Belum ada bab dipilih. Pilih minimal satu bab."; warn=true; }
+    else if(n>=20){ msg=`Soal terpilih: <b>${n}</b>. Papan butuh 20 soal, jadi <b>20 soal diambil acak</b> dan diurutkan dari yang mudah.`; }
+    else { msg=`Soal terpilih: <b>${n}</b>. Papan butuh 20 soal, jadi soal akan <b>diulang</b> di beberapa petak. Pilih lebih banyak bab agar lebih beragam.`; warn=true; } }
+  sb.innerHTML=msg; sb.classList.toggle("warn",warn); $("startBtn").disabled=(S.pack==="bab"&&n===0);
+}
+function setKelas(k){ S.kelas=k; sfx("click"); renderMateri(); }
+function toggleBab(b){ S.babSel.has(b)?S.babSel.delete(b):S.babSel.add(b); sfx("click"); renderMateri(); }
+function babAll(v){ S.babSel=new Set(v?[1,2,3,4,5]:[]); sfx("click"); renderMateri(); }
+function togglePack(){ S.pack=S.pack==="bawaan"?"bab":"bawaan"; sfx("click"); renderMateri(); }
+
+/* ---------- layar penuh, info pengembang, toast ---------- */
+let toastT=null; function toast(m){ const t=$("toast"); t.textContent=m; t.classList.add("show"); clearTimeout(toastT); toastT=setTimeout(()=>t.classList.remove("show"),4200); }
+function fsEl(){ return document.fullscreenElement||document.webkitFullscreenElement; }
+async function toggleFS(){
+  sfx("click");
+  try{
+    if(fsEl()){ (document.exitFullscreen||document.webkitExitFullscreen).call(document); }
+    else{ const el=document.documentElement; const f=el.requestFullscreen||el.webkitRequestFullscreen; if(!f)throw new Error("na"); await f.call(el); }
+  }catch(e){ toast("Layar penuh diblokir di pratinjau ini. Buka game di tab/jendela sendiri lalu coba lagi, atau tekan F11."); }
+}
+function syncFS(){ $("fsBtn").textContent=fsEl()?"🗗":"⛶"; $("fsBtn").title=fsEl()?"Keluar layar penuh":"Layar penuh"; }
+document.addEventListener("fullscreenchange",syncFS); document.addEventListener("webkitfullscreenchange",syncFS);
+let devT=null; function toggleDev(){ sfx("click"); const t=$("devTip"); const on=!t.classList.contains("show"); t.classList.toggle("show",on); clearTimeout(devT); if(on)devT=setTimeout(()=>t.classList.remove("show"),6000); }
+document.addEventListener("pointerdown",e=>{ if(!e.target.closest("#devBtn,#devTip"))$("devTip").classList.remove("show"); });
+function newGame(names){
+  S.players=names.map((n,i)=>({name:n,color:PCOL[i].c,cname:PCOL[i].n,pos:0,score:0,correct:0,wrong:0}));
+  S.cur=0;S.phase="idle";S.answered=new Set();S.finishTriggered=false;S.qLock=false;
+  $("board").innerHTML=boardHTML(); buildCube(); $("cube").style.transition="none"; $("cube").style.transform="rotateX(-25deg) rotateY(35deg)";
+  $("qOverlay").classList.remove("show"); closeModal();
+  $("gameTeacher").innerHTML=teacherSVG("happy");
+  requestAnimationFrame(()=>{ syncTokens($("board"),S.players,S.cur); });
+  say(`Assalamu'alaikum! Selamat bermain, ${S.players[0].name}. Tekan LEMPAR DADU untuk memulai!`,"happy");
+  $("dinfo").innerHTML="Tekan tombol untuk melempar dadu"; updateUI();
+}
+
+/* =========================================================
+   UI UPDATE
+   ========================================================= */
+function say(t,mood){ $("say").textContent=t; if(mood){ $("gameTeacher").innerHTML=teacherSVG(mood); } }
+function ranks(){
+  const idx=S.players.map((p,i)=>i).sort((a,b)=>S.players[b].score-S.players[a].score||S.players[b].correct-S.players[a].correct);
+  const rk={}; idx.forEach((pi,k)=>{ const prev=idx[k-1]; rk[pi]=(k>0&&S.players[prev].score===S.players[pi].score&&S.players[prev].correct===S.players[pi].correct)?rk[prev]:k+1; });
+  return {idx,rk};
+}
+function scoreHTML(){
+  const {rk}=ranks();
+  return S.players.map((p,i)=>`<div class="srow ${i===S.cur&&S.phase!=="over"?"act":""}" style="--pc:${p.color}">
+    <div style="color:${p.color}">${pawnSVG()}</div>
+    <div><div class="n"><span class="rk">#${rk[i]}</span>${esc(p.name)}</div><div class="m">📍 ${p.pos===0?"START":p.pos===20?"FINISH":"Petak "+p.pos} • ✔ ${p.correct} benar</div></div>
+    <div class="pt">${p.score}<small>poin</small></div></div>`).join("");
+}
+function updateUI(){
+  const p=S.players[S.cur]; if(!p)return;
+  $("turnBar").style.setProperty("--tc",p.color);
+  $("turnBar").innerHTML=`<div style="color:${p.color}">${pawnSVG()}</div><div><small>GILIRAN SEKARANG</small><span class="nm">${esc(p.name.toUpperCase())}</span></div>`;
+  $("scoreList").innerHTML=scoreHTML();
+  const b=$("rollBtn"); b.disabled=S.phase!=="idle";
+  syncTokens($("board"),S.players,S.cur); markCell(); syncSoundBtns();
+}
+
+/* =========================================================
+   ALUR PERMAINAN
+   ========================================================= */
+async function rollDice(){
+  if(S.phase!=="idle")return; const p=S.players[S.cur];
+  S.phase="rolling"; updateUI(); sfx("roll");
+  say("Dadu sedang berputar... 🎲","happy"); $("dinfo").textContent="Dadu berputar...";
+  const v=1+Math.floor(Math.random()*6);      // hasil dadu acak 1–6
+  await animateDice(v);
+  const sisa=20-p.pos, steps=Math.min(v,sisa);
+  $("dinfo").innerHTML=`Dadu: <b>${v}</b> → melangkah <b>${steps}</b> petak`+(steps<v?" (langsung ke FINISH!)":"");
+  say(`Dadu menunjukkan angka ${v}! ${esc(p.name)} melangkah ${steps} petak.`,"cheer");
+  await sleep(450);
+  S.phase="moving";
+  for(let i=0;i<steps;i++){ p.pos++; sfx("step"); syncTokens($("board"),S.players,S.cur);
+    const sv=document.querySelector('#board .tok[data-p="'+S.cur+'"] svg'); if(sv){ sv.classList.remove("jump"); void sv.getBoundingClientRect(); sv.classList.add("jump"); }
+    await sleep(430); }
+  markCell(); updateUI(); await sleep(400);
+  openQuestion(p.pos);
+}
+
+function openQuestion(n){
+  S.phase="question"; S.qLock=false; sfx("card");
+  const q=S.bank[n-1], cat=CAT[TILE_CAT[n-1]], p=S.players[S.cur];
+  say(`Petak ${n}: ${cat.n}. Baca soalnya baik-baik ya, ${p.name}!`,"happy");
+  const L=["A","B","C","D"];
+  const o=$("qOverlay");
+  o.innerHTML=`<div class="qwrap"><div class="qteach"><div class="teacher bob" id="qTeacher">${teacherSVG("happy")}</div></div>
+   <div class="qcard" id="qcard" style="--qc:${cat.q}">
+    <div class="qhead"><span class="chip">${ICONS[n-1]} SOAL ${n} dari 20</span><span class="chip o">${esc(q.lt)}</span>${q.bab?`<span class="chip o" style="background:#475569">Kelas ${q.kelas} • Bab ${q.bab}</span>`:""}<span class="chip" style="background:${cat.c2}">${cat.n}</span><span class="chip o" style="background:${p.color};color:#111;text-shadow:none">${esc(p.name)}</span></div>
+    <div class="qtext">${esc(q.q)}</div>
+    <div class="opts">${q.o.map((t,i)=>`<button class="opt" data-i="${i}" onclick="answer(${i})"><span class="l">${L[i]}</span><span>${esc(t)}</span></button>`).join("")}</div>
+    <div id="qfb"></div></div></div>`;
+  o.classList.add("show");
+}
+function answer(i){
+  if(S.qLock)return; S.qLock=true; sfx("click");
+  const p=S.players[S.cur], n=p.pos, q=S.bank[n-1], ok=i===q.k;
+  const pem=q.p?`<b>Pembahasan:</b> ${esc(q.p)}`:`<b>Materi:</b> ${esc(q.topik)}`;
+  S.answered.add(n);
+  document.querySelectorAll("#qcard .opt").forEach(b=>{ const bi=+b.dataset.i; b.disabled=true; if(bi===q.k)b.classList.add("ok"); else if(bi===i)b.classList.add("no"); else b.classList.add("dim"); });
+  const L="ABCD"[q.k];
+  if(ok){ p.score+=10; p.correct++;
+    $("qfb").innerHTML=`<div class="fb good"><h4>🎉 HEBAT! JAWABAN KAMU BENAR!</h4><p>${pem}</p><span class="pts">+10 poin</span></div>`;
+    $("qTeacher").innerHTML=teacherSVG("cheer"); sfx("ok");
+    const r=$("qcard").getBoundingClientRect(); burst(r.left+r.width/2,r.top+40,140,11); setTimeout(()=>burst(r.left+60,r.top+80,60,8),250); setTimeout(()=>burst(r.right-60,r.top+80,60,8),400); stars($("qcard"));
+    say(["Masya Allah, hebat sekali!","Pintar! Kamu benar-benar menghargai perbedaan.","Luar biasa! Pertahankan ya!"][Math.floor(Math.random()*3)],"cheer");
+  } else { p.wrong++;
+    $("qfb").innerHTML=`<div class="fb bad"><h4>💪 TETAP SEMANGAT! AYO BELAJAR LAGI!</h4><p><b>Jawaban benar: ${L}. ${esc(q.o[q.k])}</b></p><p>${pem}</p><span class="pts">+0 poin</span></div>`;
+    $("qTeacher").innerHTML=teacherSVG("sad"); sfx("no"); $("qcard").classList.add("shake"); hugs($("qcard"));
+    say(["Tidak apa-apa, kesalahan adalah guru terbaik.","Ayo coba lagi di giliran berikutnya, kamu pasti bisa!","Semangat! Baca pembahasannya ya."][Math.floor(Math.random()*3)],"sad");
+  }
+  $("qfb").insertAdjacentHTML("beforeend",`<div class="qfoot"><button class="btn gold glow" onclick="continueTurn()">➡ LANJUTKAN GILIRAN</button></div>`);
+  S.phase="feedback"; $("scoreList").innerHTML=scoreHTML();
+  setTimeout(()=>{ const f=$("qfb"); f&&f.scrollIntoView({behavior:"smooth",block:"nearest"}); },100);
+}
+function continueTurn(){
+  if(S.phase!=="feedback")return; sfx("click");
+  $("qOverlay").classList.remove("show"); $("qOverlay").innerHTML="";
+  const p=S.players[S.cur]; if(p.pos>=20)S.finishTriggered=true;
+  const n=S.players.length, wrap=S.cur===n-1;
+  if(wrap&&(S.finishTriggered||S.answered.size>=20)){ endGame(); return; }
+  S.cur=(S.cur+1)%n; S.phase="idle"; updateUI();
+  const np=S.players[S.cur];
+  say(S.finishTriggered?`Putaran terakhir! Giliran ${np.name}, tekan LEMPAR DADU.`:`Giliran ${np.name}. Tekan LEMPAR DADU ya!`,"happy");
+  $("dinfo").textContent="Tekan tombol untuk melempar dadu";
+}
+
+/* =========================================================
+   HASIL AKHIR
+   ========================================================= */
+function endGame(){
+  S.phase="over"; const {idx,rk}=ranks(); const ps=S.players;
+  const total=p=>p.correct+p.wrong, pct=p=>total(p)?Math.round(p.correct/total(p)*100):0;
+  const order=idx.slice(), pods=[];
+  const classes=["p1","p2","p3","p4"], medal=["🥇","🥈","🥉","🏅"];
+  const podOrder=order.length===2?[1,0]:order.length===3?[1,0,2]:[1,0,2,3];
+  podOrder.forEach(k=>{ const pi=order[k],p=ps[pi]; pods.push(`<div class="pod ${classes[k]}"><div class="who">${medal[k]} ${esc(p.name)}</div><div class="tw" style="color:${p.color}">${pawnSVG()}</div><div class="blk" style="animation-delay:${(3-k)*.25}s"><b>${rk[pi]}</b><span>${p.score} poin</span></div></div>`); });
+  const rows=order.map(pi=>{const p=ps[pi];return `<tr><td>${medal[order.indexOf(pi)]} Juara ${rk[pi]}</td><td class="nm"><span style="color:${p.color}">●</span> ${esc(p.name)}</td><td>${p.score}</td><td>✔ ${p.correct}</td><td>✘ ${p.wrong}</td><td>${pct(p)}%</td></tr>`;}).join("");
+  const win=ps[order[0]];
+  const tied=order.length>1&&rk[order[1]]===1;
+  const motiv=tied?`Wah, hasilnya seri! <b>${esc(ps[order[0]].name)}</b> dan <b>${esc(ps[order[1]].name)}</b> sama-sama hebat.`:`Selamat kepada juara 1: <b>${esc(win.name)}</b>! 🎉`;
+  show("result");
+  $("result").innerHTML=`<h1>🏆 HASIL PERMAINAN 🏆</h1>
+   <svg class="trophy" viewBox="0 0 120 130"><defs><linearGradient id="tg" x1="0" x2="1"><stop offset="0" stop-color="#fde047"/><stop offset=".5" stop-color="#fbbf24"/><stop offset="1" stop-color="#b45309"/></linearGradient></defs>
+    <path d="M30 10h60v35q0 32-30 38q-30-6-30-38Z" fill="url(#tg)" stroke="#92400e" stroke-width="3"/>
+    <path d="M30 18H10q0 30 24 36M90 18h20q0 30-24 36" fill="none" stroke="#f59e0b" stroke-width="7" stroke-linecap="round"/>
+    <rect x="54" y="82" width="12" height="20" fill="#d97706"/><rect x="34" y="100" width="52" height="14" rx="5" fill="url(#tg)" stroke="#92400e" stroke-width="3"/>
+    <path d="M60 24l5.5 12 13 1.5-9.7 9 2.8 13-11.6-6.8-11.6 6.8 2.8-13-9.7-9 13-1.5z" fill="#fff7c2" stroke="#b45309" stroke-width="2"/></svg>
+   <div class="podium">${pods.join("")}</div>
+   <div class="rtable"><table><tr><th>Peringkat</th><th>Nama</th><th>Total Skor</th><th>Benar</th><th>Salah</th><th>Ketepatan</th></tr>${rows}</table></div>
+   <div class="motiv">${motiv}<br>Terima kasih sudah bermain! Ingatlah: Allah menciptakan kita berbeda-beda agar <b>saling mengenal</b>, dan yang paling mulia adalah yang paling <b>bertakwa</b>. Terus saling menghargai, tolong-menolong, dan hidup rukun ya, anak-anak hebat! 🌟🤝</div>
+   <div class="row-btn"><button class="btn gold glow" onclick="playAgain()">🔄 MAIN LAGI</button><button class="btn" onclick="stopConfetti();goMateri2()">📚 GANTI MATERI</button><button class="btn red" onclick="toHome()">🏠 BERANDA</button></div>`;
+  sfx("win"); const bursts=()=>{ burst(innerWidth*Math.random(),innerHeight*.35,90,11); rain(28); };
+  bursts(); stopConfetti(); contTimer=setInterval(bursts,1500);
+}
+function goMateri2(){ renderMateri(); show('materi'); }
+function playAgain(){ stopConfetti(); newGame(S.players.map(p=>p.name)); show("game"); }
+function toHome(){ stopConfetti(); closeModal(); $("qOverlay").classList.remove("show"); S.phase="idle"; show("home"); }
+
+/* =========================================================
+   MODAL: PETUNJUK, TUJUAN, SKOR, KONFIRMASI
+   ========================================================= */
+function showHelp(){ sfx("click"); openModal(`<h2>📘 Petunjuk Permainan</h2><ol>
+ <li>Mainkan bersama <b>2–4 pemain atau kelompok</b> secara bergiliran pada satu perangkat.</li>
+ <li>Pilih <b>kelas dan bab</b> soal sebelum mulai bermain.</li>
+ <li>Pemain yang mendapat giliran menekan tombol <b>LEMPAR DADU</b>.</li>
+ <li>Pion berjalan otomatis sesuai angka dadu (1–6) di papan <b>20 petak</b>.</li>
+ <li>Setelah pion berhenti, muncul <b>kartu soal</b> sesuai nomor petak. Pilih satu jawaban A, B, C, atau D.</li>
+ <li>Jawaban benar mendapat <b>10 poin</b>, jawaban salah mendapat 0 poin. Baca pembahasannya!</li>
+ <li>Tekan <b>LANJUTKAN GILIRAN</b> agar giliran pindah ke pemain berikutnya.</li>
+ <li>Permainan berakhir saat ada pemain mencapai <b>FINISH</b> (setelah semua pemain mendapat giliran yang sama banyak) atau seluruh 20 soal sudah muncul.</li>
+ <li>Juara ditentukan dari skor tertinggi. Jika skor sama, yang lebih banyak menjawab benar menang.</li></ol>
+ <div class="row-btn"><button class="btn gold" onclick="closeModal()">✔ MENGERTI</button></div>`); }
+function showGoals(){ sfx("click"); openModal(`<h2>🎯 Tujuan Pembelajaran</h2><p style="text-align:center;color:#bae6fd;margin-bottom:8px">Indahnya Saling Menghargai dalam Keragaman</p><ol>
+ <li>Siswa memahami bahwa manusia diciptakan beragam oleh Allah Swt.</li>
+ <li>Siswa mengetahui kandungan pokok Q.S. Al-Hujurat ayat 13.</li>
+ <li>Siswa memahami pentingnya saling menghargai perbedaan.</li>
+ <li>Siswa menunjukkan perilaku toleransi dan menghormati sesama.</li>
+ <li>Siswa mampu menerapkan sikap persaudaraan, tolong-menolong, dan hidup rukun.</li></ol>
+ <div class="row-btn"><button class="btn gold" onclick="closeModal()">✔ TUTUP</button></div>`); }
+function showScores(){ sfx("click"); if(!S.players.length)return; const {rk}=ranks();
+  openModal(`<h2>🏅 Skor Sementara</h2>${S.players.map((p,i)=>`<div class="srow ${i===S.cur?"act":""}" style="--pc:${p.color};font-size:1.15em"><div style="color:${p.color}">${pawnSVG()}</div><div><div class="n" style="max-width:none"><span class="rk">#${rk[i]}</span>${esc(p.name)}</div><div class="m">📍 ${p.pos===0?"START":p.pos===20?"FINISH":"Petak "+p.pos} • ✔ ${p.correct} benar • ✘ ${p.wrong} salah</div></div><div class="pt">${p.score}<small>poin</small></div></div>`).join("")}
+  <div class="row-btn"><button class="btn gold" onclick="closeModal()">✔ TUTUP</button></div>`); }
+function confirmBox(msg,yes){ window._yes=yes; openModal(`<div class="confirm"><h2>⚠️ Konfirmasi</h2><p>${msg}</p><div class="row-btn"><button class="btn red" onclick="closeModal();window._yes()">YA, LANJUTKAN</button><button class="btn green" onclick="closeModal()">BATAL</button></div></div>`); }
+function askRestart(){ sfx("click"); confirmBox("Yakin ingin <b>MULAI ULANG</b>? Skor, posisi pion, urutan pemain, dan progres soal akan kembali ke awal.",()=>{ newGame(S.players.map(p=>p.name)); }); }
+function askHome(){ sfx("click"); confirmBox("Yakin ingin kembali ke <b>BERANDA</b>? Permainan yang sedang berjalan akan dihentikan.",toHome); }
+
+/* ---------- mulai ---------- */
+initHome(); syncSoundBtns();
+</script>
+</body>
+</html>
